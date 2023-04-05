@@ -1,0 +1,52 @@
+﻿<Window x:Class="VectorDrawPRO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VectorDrawPRO"
+        xmlns:viewmodels="clr-namespace:VectorDrawPRO.Code.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+   
+        <Window.Resources>
+            <viewmodels:CreateCircleCommand x:Key="MainViewModel"/>
+        </Window.Resources>
+   
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding Path=NewCommand}"/>
+                <MenuItem Header="_Open" Command="{Binding Path=OpenCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Save" Command="{Binding Path=SaveCommand}"/>
+                <MenuItem Header="Save _As" Command="{Binding Path=SaveAsCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" Command="{Binding Path=UndoCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Shapes">
+                <MenuItem Header="_Cercle" Command="{Binding Path=CreateCircleCommand, Source={StaticResource MainViewModel}}"/>
+                <MenuItem Header="_Rectangle" Command="{Binding Path=CreateRectangleCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Canvas x:Name="canvas"/>
+        </Grid>
+    </Grid>
+
+</Window>
