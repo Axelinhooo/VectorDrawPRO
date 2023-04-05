@@ -7,13 +7,11 @@
         xmlns:viewmodels="clr-namespace:VectorDrawPRO.Code.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
-   
-        <Window.Resources>
-            <viewmodels:CreateCircleCommand x:Key="MainViewModel"/>
-        </Window.Resources>
-   
-    
+
+    <Window.Resources>
+        <viewmodels:CreateCircleCommand x:Key="CreateCircleCommand"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -36,7 +34,8 @@
                 <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}"/>
             </MenuItem>
             <MenuItem Header="_Shapes">
-                <MenuItem Header="_Cercle" Command="{Binding Path=CreateCircleCommand, Source={StaticResource MainViewModel}}"/>
+                <MenuItem Header="_Cercle" Command="{StaticResource CreateCircleCommand}" 
+                          CommandParameter="{Binding ElementName=canvas}"/>
                 <MenuItem Header="_Rectangle" Command="{Binding Path=CreateRectangleCommand}"/>
             </MenuItem>
             <MenuItem Header="_Help">

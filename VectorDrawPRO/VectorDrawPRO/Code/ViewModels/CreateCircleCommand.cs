@@ -9,11 +9,12 @@ public class CreateCircleCommand : ICommand
 {
     private readonly Canvas _canvas;
 
+    public CreateCircleCommand() { }
+
     public CreateCircleCommand(Canvas canvas)
     {
         _canvas = canvas;
     }
-    
 
     public bool CanExecute(object parameter)
     {
@@ -24,12 +25,15 @@ public class CreateCircleCommand : ICommand
     {
         Circle circle = new Circle
         {
-            X = 100,
-            Y = 100,
+            X = 300,
+            Y = 300,
             Radius = 50
         };
 
-        circle.Draw(_canvas);
+        if (parameter is Canvas canvas)
+        {
+            circle.Draw(canvas);
+        }
     }
 
     public event EventHandler CanExecuteChanged;
