@@ -10,6 +10,9 @@
 
     <Window.Resources>
         <viewmodels:CreateCircleCommand x:Key="CreateCircleCommand"/>
+        <viewmodels:CreateRectangleCommand x:Key="CreateRectangleCommand"/>
+        <viewmodels:CreateDiamondCommand x:Key="CreateDiamondCommand"/>
+        <viewmodels:CreateTriangleCommand x:Key="CreateTriangleCommand"/>
     </Window.Resources>
 
     <Grid>
@@ -36,7 +39,12 @@
             <MenuItem Header="_Shapes">
                 <MenuItem Header="_Cercle" Command="{StaticResource CreateCircleCommand}" 
                           CommandParameter="{Binding ElementName=canvas}"/>
-                <MenuItem Header="_Rectangle" Command="{Binding Path=CreateRectangleCommand}"/>
+                <MenuItem Header="_Rectangle" Command="{StaticResource CreateRectangleCommand}" 
+                          CommandParameter="{Binding ElementName=canvas}"/>
+                <MenuItem Header="_Losange" Command="{StaticResource CreateDiamondCommand}" 
+                          CommandParameter="{Binding ElementName=canvas}"/>
+                <MenuItem Header="_Triangle" Command="{StaticResource CreateTriangleCommand}" 
+                          CommandParameter="{Binding ElementName=canvas}"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>

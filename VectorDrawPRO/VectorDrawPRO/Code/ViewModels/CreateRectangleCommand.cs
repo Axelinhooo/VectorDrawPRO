@@ -6,13 +6,13 @@ using VectorDrawPRO.Code.Models;
 
 namespace VectorDrawPRO.Code.ViewModels;
 
-public class CreateCircleCommand : ICommand
+public class CreateRectangleCommand : ICommand
 {
     private readonly Canvas _canvas;
 
-    public CreateCircleCommand() { }
+    public CreateRectangleCommand() { }
 
-    public CreateCircleCommand(Canvas canvas)
+    public CreateRectangleCommand(Canvas canvas)
     {
         _canvas = canvas;
     }
@@ -28,13 +28,12 @@ public class CreateCircleCommand : ICommand
         {
             Point mousePosition = Mouse.GetPosition(canvas);
 
-            Circle rectangle = new Circle()
+            Rectangle rectangle = new Rectangle
             {
                 X = Convert.ToInt32(mousePosition.X),
                 Y = Convert.ToInt32(mousePosition.Y),
                 Width = 100,
-                Height = 75,
-                Radius = 50
+                Height = 75
             };
 
             rectangle.Draw(canvas);
