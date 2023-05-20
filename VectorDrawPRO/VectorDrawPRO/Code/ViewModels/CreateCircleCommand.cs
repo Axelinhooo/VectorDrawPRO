@@ -9,6 +9,7 @@ namespace VectorDrawPRO.Code.ViewModels;
 public class CreateCircleCommand : ICommand
 {
     private readonly Canvas _canvas;
+    public static bool _isSelected = false;
 
     public CreateCircleCommand() { }
 

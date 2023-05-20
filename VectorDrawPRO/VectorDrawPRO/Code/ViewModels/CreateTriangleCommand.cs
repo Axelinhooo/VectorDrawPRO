@@ -11,6 +11,7 @@ namespace VectorDrawPRO.Code.ViewModels;
 public class CreateTriangleCommand : ICommand
 {
     private readonly Canvas _canvas;
+    public static bool _isSelected = false;
 
     public CreateTriangleCommand() { }
 

@@ -11,6 +11,7 @@ namespace VectorDrawPRO.Code.ViewModels;
 public class CreateDiamondCommand : ICommand
 {
     private readonly Canvas _canvas;
+    public static bool _isSelected = false;
 
     public CreateDiamondCommand() { }
 

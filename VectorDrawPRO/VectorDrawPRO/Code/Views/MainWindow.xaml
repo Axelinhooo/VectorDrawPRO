@@ -8,13 +8,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Window.Resources>
-        <viewmodels:CreateCircleCommand x:Key="CreateCircleCommand"/>
-        <viewmodels:CreateRectangleCommand x:Key="CreateRectangleCommand"/>
-        <viewmodels:CreateDiamondCommand x:Key="CreateDiamondCommand"/>
-        <viewmodels:CreateTriangleCommand x:Key="CreateTriangleCommand"/>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -37,14 +30,10 @@
                 <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}"/>
             </MenuItem>
             <MenuItem Header="_Shapes">
-                <MenuItem Header="_Cercle" Command="{StaticResource CreateCircleCommand}" 
-                          CommandParameter="{Binding ElementName=canvas}"/>
-                <MenuItem Header="_Rectangle" Command="{StaticResource CreateRectangleCommand}" 
-                          CommandParameter="{Binding ElementName=canvas}"/>
-                <MenuItem Header="_Losange" Command="{StaticResource CreateDiamondCommand}" 
-                          CommandParameter="{Binding ElementName=canvas}"/>
-                <MenuItem Header="_Triangle" Command="{StaticResource CreateTriangleCommand}" 
-                          CommandParameter="{Binding ElementName=canvas}"/>
+                <MenuItem Header="_Cercle" Click="selectCircleCommand"/>
+                <MenuItem Header="_Rectangle" Click="selectRectangleCommand"/>
+                <MenuItem Header="_Losange" Click="selectDiamondCommand"/>
+                <MenuItem Header="_Triangle" Click="selectTriangleCommand"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>
@@ -52,7 +41,7 @@
         </Menu>
 
         <Grid Grid.Row="1">
-            <Canvas x:Name="canvas"/>
+            <Canvas x:Name="canvas" Background="White" MouseDown="Canvas_MouseDown"/>
         </Grid>
     </Grid>
 

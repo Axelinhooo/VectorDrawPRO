@@ -19,14 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Code\Converters" />
-      <Folder Include="Code\Exceptions" />
-      <Folder Include="Code\Services" />
-      <Folder Include="Documentation" />
-      <Folder Include="Tests" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ApplicationDefinition Include="Code\Views\App.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
