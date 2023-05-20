@@ -11,8 +11,6 @@ public class CreateRectangleCommand : ICommand
     private readonly Canvas _canvas;
     public static bool _isSelected = false;
 
-    public CreateRectangleCommand() { }
-
     public CreateRectangleCommand(Canvas canvas)
     {
         _canvas = canvas;
@@ -31,8 +29,8 @@ public class CreateRectangleCommand : ICommand
 
             Rectangle rectangle = new Rectangle
             {
-                X = Convert.ToInt32(mousePosition.X),
-                Y = Convert.ToInt32(mousePosition.Y),
+                X = Convert.ToInt32(mousePosition.X) - 50,
+                Y = Convert.ToInt32(mousePosition.Y) - 50,
                 Width = 100,
                 Height = 75
             };

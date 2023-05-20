@@ -6,7 +6,6 @@ C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\bin\De
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.csproj.AssemblyReference.cache
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\MainWindow.g.cs
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\App.g.cs
-C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO_MarkupCompile.cache
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO_MarkupCompile.lref
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\MainWindow.baml

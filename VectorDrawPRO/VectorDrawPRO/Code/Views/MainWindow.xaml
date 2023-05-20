@@ -25,9 +25,11 @@
                 <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" Command="{Binding Path=UndoCommand}"/>
+                <MenuItem Header="_Undo" Command="{Binding Path=UndoCommand}" InputGestureText="Ctrl+Z"/>
                 <Separator/>
-                <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}"/>
+                <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}" InputGestureText="Ctrl+Y"/>
+                <Separator/>
+                <MenuItem Header="_Eraser" Command="{Binding Path=EraserCommand}"/>
             </MenuItem>
             <MenuItem Header="_Shapes">
                 <MenuItem Header="_Cercle" Click="selectCircleCommand"/>

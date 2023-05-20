@@ -11,8 +11,6 @@ public class CreateCircleCommand : ICommand
     private readonly Canvas _canvas;
     public static bool _isSelected = false;
 
-    public CreateCircleCommand() { }
-
     public CreateCircleCommand(Canvas canvas)
     {
         _canvas = canvas;
@@ -29,7 +27,7 @@ public class CreateCircleCommand : ICommand
         {
             Point mousePosition = Mouse.GetPosition(canvas);
 
-            Circle rectangle = new Circle()
+            Circle circle = new Circle()
             {
                 X = Convert.ToInt32(mousePosition.X),
                 Y = Convert.ToInt32(mousePosition.Y),
@@ -38,7 +36,7 @@ public class CreateCircleCommand : ICommand
                 Radius = 50
             };
 
-            rectangle.Draw(canvas);
+            circle.Draw(canvas);
         }
     }
 
