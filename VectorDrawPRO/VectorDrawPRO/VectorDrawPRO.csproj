@@ -26,4 +26,8 @@
       </ApplicationDefinition>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Code\img\" />
+    </ItemGroup>
+
 </Project>

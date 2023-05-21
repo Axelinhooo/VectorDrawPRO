@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VectorDrawPRO.Code.ViewModels;
 using Shape = VectorDrawPRO.Code.Models.Shape;
@@ -10,6 +12,8 @@ namespace VectorDrawPRO
     /// </summary>
     public partial class MainWindow : Window
     {
+        MenuItem itemSelected;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +31,7 @@ namespace VectorDrawPRO
             
         }
 
-        private void selectOne(ICommand shape)
+        private void selectOne(ICommand shape, object sender)
         {
             CreateCircleCommand._isSelected = shape is CreateCircleCommand ? !CreateCircleCommand._isSelected : false ;
             CreateRectangleCommand._isSelected = shape is CreateRectangleCommand ? !CreateRectangleCommand._isSelected : false;
@@ -35,33 +39,54 @@ namespace VectorDrawPRO
             CreateDiamondCommand._isSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand._isSelected : false;
             Cursor = checkIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
             Shape.eraserMode = false;
+            ResetMenuItemStyles();
+            MenuItem menuItem = sender as MenuItem;
+            menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
+            itemSelected = menuItem;
+        }
+        
+        private void ResetMenuItemStyles()
+        {
+            if (itemSelected != null)
+            {
+                itemSelected.Style = null;
+            }
         }
 
         private void selectCircleCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateCircleCommand(canvas));
+            selectOne(new CreateCircleCommand(canvas), sender);
+            
         }
         
-        private void selectRectangleCommand(object sender, RoutedEventArgs e)
+        private void selectRectangleCommand(object sender,RoutedEventArgs e)
         {
-            selectOne(new CreateRectangleCommand(canvas));
+            selectOne(new CreateRectangleCommand(canvas), sender);
         }
-        
+
         private void selectTriangleCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateTriangleCommand(canvas));
+            selectOne(new CreateTriangleCommand(canvas), sender);
         }
-        
+
         private void selectDiamondCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateDiamondCommand(canvas));
+            selectOne(new CreateDiamondCommand(canvas), sender);
         }
-        
+
         private void selectEraserCommand(object sender, RoutedEventArgs e)
         {
             Shape.eraserMode = !Shape.eraserMode;
             Cursor = Shape.eraserMode ? Cursors.Cross : Cursors.Arrow;
+            MenuItem menuItem = sender as MenuItem;
+            menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
         }
+                
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        
         
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {

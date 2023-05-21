@@ -7,7 +7,6 @@ C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\De
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\MainWindow.g.cs
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\App.g.cs
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO_MarkupCompile.cache
-C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO_MarkupCompile.lref
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\Code\Views\MainWindow.baml
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.g.resources
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.GeneratedMSBuildEditorConfig.editorconfig
