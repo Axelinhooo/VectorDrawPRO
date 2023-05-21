@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.ViewModels;
-using Shape = VectorDrawPRO.Code.Models.Shape;
 
 namespace VectorDrawPRO
 {
@@ -38,7 +38,7 @@ namespace VectorDrawPRO
             CreateTriangleCommand._isSelected = shape is CreateTriangleCommand ? !CreateTriangleCommand._isSelected : false;
             CreateDiamondCommand._isSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand._isSelected : false;
             Cursor = checkIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
-            Shape.eraserMode = false;
+            Shapes.EraserMode = false;
             ResetMenuItemStyles();
             MenuItem menuItem = sender as MenuItem;
             menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
@@ -76,10 +76,12 @@ namespace VectorDrawPRO
 
         private void selectEraserCommand(object sender, RoutedEventArgs e)
         {
-            Shape.eraserMode = !Shape.eraserMode;
-            Cursor = Shape.eraserMode ? Cursors.Cross : Cursors.Arrow;
+            Shapes.EraserMode = !Shapes.EraserMode;
+            Cursor = Shapes.EraserMode ? Cursors.Cross : Cursors.Arrow;
+            ResetMenuItemStyles();
             MenuItem menuItem = sender as MenuItem;
             menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
+            itemSelected = menuItem;
         }
                 
         private void exit(object sender, RoutedEventArgs e)
@@ -90,7 +92,7 @@ namespace VectorDrawPRO
         
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Shape.EditMode == false && Shape.eraserMode == false)
+            if (Shapes.EditMode == false && Shapes.EraserMode == false)
             {
                if (CreateCircleCommand._isSelected)
                {

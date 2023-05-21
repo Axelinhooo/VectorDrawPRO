@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace VectorDrawPRO.Code.Models;
 
-public class Rectangle : Shape
+public class Rectangle : Shapes
 {
     bool individualEditmode = false;
     
@@ -23,49 +23,6 @@ public class Rectangle : Shape
 
         canvas.Children.Add(rect);
         
-        canvas.MouseLeftButtonDown += (sender, e) =>
-        {
-            if (!eraserMode)
-            {
-                if (IsMouseOver(e.GetPosition(canvas)))
-                {
-                    if(individualEditmode == false && EditMode == false)
-                    {
-                        rect.Fill = Brushes.Red;
-                        individualEditmode = true;
-                        EditMode = true;
-                    }
-                }
-                else
-                {
-                    if (individualEditmode)
-                    {
-                        rect.Fill = Brushes.Transparent;
-                        individualEditmode = false;
-                        EditMode = false;
-                    }
-                }
-            }
-            else
-            {
-                if (IsMouseOver(e.GetPosition(canvas)))
-                {
-                    canvas.Children.Remove(rect);
-                }
-            }
-            
-        };
-    }
-    
-    public bool IsMouseOver(Point mousePosition)
-    {
-        if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y && mousePosition.Y <= Y + Height)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        AddMouseLeftButtonDownEvent(rect, canvas);
     }
 }

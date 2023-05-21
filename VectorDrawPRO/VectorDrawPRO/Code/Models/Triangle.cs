@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 
 namespace VectorDrawPRO.Code.Models;
 
-public class Triangle : Shape
+public class Triangle : Shapes
 {
     bool individualEditmode = false;
     
@@ -18,48 +18,6 @@ public class Triangle : Shape
         polygon.Stroke = Brushes.Black;
         canvas.Children.Add(polygon);
         
-        canvas.MouseLeftButtonDown += (sender, e) =>
-        {
-            if (!eraserMode)
-            {
-                if (IsMouseOver(e.GetPosition(canvas)))
-                {
-                    if(individualEditmode == false && EditMode == false)
-                    {
-                        polygon.Fill = Brushes.Red;
-                        individualEditmode = true;
-                        EditMode = true;
-                    }
-                }
-                else
-                {
-                    if (individualEditmode)
-                    {
-                        polygon.Fill = Brushes.Transparent;
-                        individualEditmode = false;
-                        EditMode = false;
-                    }
-                }
-            }
-            else
-            {
-                if (IsMouseOver(e.GetPosition(canvas)))
-                {
-                    canvas.Children.Remove(polygon);
-                }
-            }
-        };
-    }
-    
-    public bool IsMouseOver(Point mousePosition)
-    {
-        if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y && mousePosition.Y <= Y + Height)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        AddMouseLeftButtonDownEvent(polygon, canvas);
     }
 }

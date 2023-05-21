@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace VectorDrawPRO.Code.Models;
 
-public class Diamond : Shape
+public class Diamond : Shapes
 {
     bool individualEditmode = false;
 
@@ -21,53 +21,6 @@ public class Diamond : Shape
         polygon.Stroke = Brushes.Black;
         canvas.Children.Add(polygon);
         
-        canvas.MouseLeftButtonDown += (sender, e) =>
-         {
-             if (!eraserMode)
-             {
-                 if (IsMouseOver(e.GetPosition(canvas)))
-                 {
-                     if(individualEditmode == false && EditMode == false)
-                     {
-                         polygon.Fill = Brushes.Red;
-                         individualEditmode = true;
-                         EditMode = true;
-                     }
-                 }
-                 else
-                 {
-                     if (individualEditmode)
-                     {
-                         polygon.Fill = Brushes.Transparent;
-                         individualEditmode = false;
-                         EditMode = false;
-                     }
-                 }
-             }
-             else
-             {
-                 if (IsMouseOver(e.GetPosition(canvas)))
-                 {
-                     canvas.Children.Remove(polygon);
-                 }
-             }
-         };
-    }
-    
-    // quand il y a un clic sur la forme, on change la couleur de la forme en rouge et son intérieur aussi
-    
-    
-    
-    
-    public bool IsMouseOver(Point mousePosition)
-    {
-        if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y && mousePosition.Y <= Y + Height)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        AddMouseLeftButtonDownEvent(polygon, canvas);
     }
 }
