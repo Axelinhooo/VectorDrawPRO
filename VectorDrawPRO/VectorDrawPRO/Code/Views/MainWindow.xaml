@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VectorDrawPRO"
         xmlns:viewmodels="clr-namespace:VectorDrawPRO.Code.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="VectorDrawPRO" Height="450" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>

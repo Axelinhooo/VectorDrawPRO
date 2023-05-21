@@ -17,45 +17,50 @@ namespace VectorDrawPRO
             canvas.MouseDown += Canvas_MouseDown;
         }
         
+        private bool checkIfOneButtonIsSelected()
+        {
+            if (CreateCircleCommand._isSelected || CreateRectangleCommand._isSelected || CreateTriangleCommand._isSelected || CreateDiamondCommand._isSelected)
+            {
+                return true;
+            }
+            return false;
+            
+        }
+
+        private void selectOne(ICommand shape)
+        {
+            CreateCircleCommand._isSelected = shape is CreateCircleCommand ? !CreateCircleCommand._isSelected : false ;
+            CreateRectangleCommand._isSelected = shape is CreateRectangleCommand ? !CreateRectangleCommand._isSelected : false;
+            CreateTriangleCommand._isSelected = shape is CreateTriangleCommand ? !CreateTriangleCommand._isSelected : false;
+            CreateDiamondCommand._isSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand._isSelected : false;
+            Cursor = checkIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
+            Shape.eraserMode = false;
+        }
+
         private void selectCircleCommand(object sender, RoutedEventArgs e)
         {
-            // change le bouton sélectionné
-            CreateCircleCommand._isSelected = true;
-            CreateRectangleCommand._isSelected = false;
-            CreateTriangleCommand._isSelected = false;
-            CreateDiamondCommand._isSelected = false;
+            selectOne(new CreateCircleCommand(canvas));
         }
         
         private void selectRectangleCommand(object sender, RoutedEventArgs e)
         {
-            // change le bouton sélectionné
-            CreateCircleCommand._isSelected = false;
-            CreateRectangleCommand._isSelected = true;
-            CreateTriangleCommand._isSelected = false;
-            CreateDiamondCommand._isSelected = false;
+            selectOne(new CreateRectangleCommand(canvas));
         }
         
         private void selectTriangleCommand(object sender, RoutedEventArgs e)
         {
-            // change le bouton sélectionné
-            CreateCircleCommand._isSelected = false;
-            CreateRectangleCommand._isSelected = false;
-            CreateTriangleCommand._isSelected = true;
-            CreateDiamondCommand._isSelected = false;
+            selectOne(new CreateTriangleCommand(canvas));
         }
         
         private void selectDiamondCommand(object sender, RoutedEventArgs e)
         {
-            // change le bouton sélectionné
-            CreateCircleCommand._isSelected = false;
-            CreateRectangleCommand._isSelected = false;
-            CreateTriangleCommand._isSelected = false;
-            CreateDiamondCommand._isSelected = true;
+            selectOne(new CreateDiamondCommand(canvas));
         }
         
         private void selectEraserCommand(object sender, RoutedEventArgs e)
         {
             Shape.eraserMode = !Shape.eraserMode;
+            Cursor = Shape.eraserMode ? Cursors.Cross : Cursors.Arrow;
         }
         
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -84,7 +89,6 @@ namespace VectorDrawPRO
                }
  
             }
-                
             
         }
     }
