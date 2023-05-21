@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
 using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.ViewModels;
 
@@ -17,8 +20,8 @@ namespace VectorDrawPRO
         public MainWindow()
         {
             InitializeComponent();
-            
             canvas.MouseDown += Canvas_MouseDown;
+            Shapes.EditShapeMenuItem = EditShapeMenuItem;
         }
         
         private bool checkIfOneButtonIsSelected()
@@ -83,13 +86,27 @@ namespace VectorDrawPRO
             menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
             itemSelected = menuItem;
         }
-                
+
         private void exit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        private void changeFill(object sender, RoutedEventArgs e)
+        {
+            Shapes.SelectedShape.Fill = Brushes.Orange;
+        }
         
+        private void changeStroke(object sender, RoutedEventArgs e)
+        {
+            Shapes.SelectedShape.Stroke = Brushes.Aqua;
+        }
         
+        private void changeStrokeThickness(object sender, RoutedEventArgs e)
+        { 
+            Shapes.SelectedShape.StrokeThickness = 3;
+        }
+
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Shapes.EditMode == false && Shapes.EraserMode == false)

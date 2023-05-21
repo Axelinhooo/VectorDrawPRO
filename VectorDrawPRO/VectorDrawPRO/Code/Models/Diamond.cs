@@ -10,10 +10,11 @@ namespace VectorDrawPRO.Code.Models;
 public class Diamond : Shapes
 {
     bool individualEditmode = false;
+    Polygon polygon;
 
     public override void Draw(Canvas canvas)
     {
-        Polygon polygon = new Polygon();
+        polygon = new Polygon();
         polygon.Points.Add(new Point(X + Width / 2, Y));
         polygon.Points.Add(new Point(X + Width, Y + Height / 2));
         polygon.Points.Add(new Point(X + Width / 2, Y + Height));
@@ -22,5 +23,10 @@ public class Diamond : Shapes
         canvas.Children.Add(polygon);
         
         AddMouseLeftButtonDownEvent(polygon, canvas);
+    }
+    
+    public Shape GetShape()
+    {
+        return polygon;
     }
 }

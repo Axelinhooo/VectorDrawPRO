@@ -1,5 +1,5 @@
 using System;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -15,12 +15,26 @@ public abstract class Shapes
     public static bool EditMode { get; set; } = false;
     
     public static bool EraserMode = false;
+
+    public static MenuItem EditShapeMenuItem;
+    
+    public static Shape SelectedShape;
     
     private bool individualEditmode;
 
     public abstract void Draw(Canvas canvas);
+
+    public bool isInEditMode()
+    {
+        return individualEditmode;
+    }
     
-    public void AddMouseLeftButtonDownEvent(Shape shapes, Canvas canvas)
+    public void setStrokeColor(Brush color, Shape shape)
+    {
+        shape.Stroke = color;
+    }
+
+    public void AddMouseLeftButtonDownEvent(Shape shape, Canvas canvas)
     {
         canvas.MouseLeftButtonDown += (sender, e) =>
         {
@@ -30,18 +44,21 @@ public abstract class Shapes
                 {
                     if (individualEditmode == false && EditMode == false)
                     {
-                        shapes.Fill = Brushes.Red;
+                        shape.Fill = Brushes.Red;
                         individualEditmode = true;
                         EditMode = true;
+                        EditShapeMenuItem.Visibility = Visibility.Visible;
+                        SelectedShape = shape;
                     }
                 }
                 else
                 {
                     if (individualEditmode)
                     {
-                        shapes.Fill = Brushes.Transparent;
+                        shape.Fill = Brushes.Transparent;
                         individualEditmode = false;
                         EditMode = false;
+                        EditShapeMenuItem.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -49,7 +66,7 @@ public abstract class Shapes
             {
                 if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    canvas.Children.Remove(shapes);
+                    canvas.Children.Remove(shape);
                 }
             }
         };

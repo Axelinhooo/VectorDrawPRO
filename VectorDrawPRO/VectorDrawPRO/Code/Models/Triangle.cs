@@ -8,6 +8,7 @@ namespace VectorDrawPRO.Code.Models;
 public class Triangle : Shapes
 {
     bool individualEditmode = false;
+    Polygon polygon;
     
     public override void Draw(Canvas canvas)
     {
@@ -19,5 +20,10 @@ public class Triangle : Shapes
         canvas.Children.Add(polygon);
         
         AddMouseLeftButtonDownEvent(polygon, canvas);
+    }
+    
+    public Shape GetShape()
+    {
+        return polygon;
     }
 }

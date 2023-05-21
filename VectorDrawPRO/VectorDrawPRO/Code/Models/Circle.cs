@@ -9,11 +9,13 @@ namespace VectorDrawPRO.Code.Models;
 public class Circle : Shapes
 {
     bool individualEditmode = false;
+    Ellipse ellipse;
+    
     public int Radius { get; set; }
 
     public override void Draw(Canvas canvas)
     {
-        Ellipse ellipse = new Ellipse
+        ellipse = new Ellipse
         {
             Width = 2 * Radius,
             Height = 2 * Radius,
@@ -27,5 +29,10 @@ public class Circle : Shapes
         canvas.Children.Add(ellipse);
 
         AddMouseLeftButtonDownEvent(ellipse, canvas);
+    }
+    
+    public Shape GetShape()
+    {
+        return ellipse;
     }
 }

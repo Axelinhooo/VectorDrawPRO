@@ -12,6 +12,11 @@
             <Setter Property="Foreground" Value="Blue"/>
             <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}"/>
         </Style>
+        <Style x:Key="SubMenuStyle" TargetType="{x:Type MenuItem}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}"/>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -42,6 +47,11 @@
                 <MenuItem Header="_Rectangle" Click="selectRectangleCommand"/>
                 <MenuItem Header="_Losange" Click="selectDiamondCommand"/>
                 <MenuItem Header="_Triangle" Click="selectTriangleCommand"/>
+            </MenuItem>
+            <MenuItem Header="_Edit Shape" Name="EditShapeMenuItem" Visibility="Collapsed" Style="{StaticResource SubMenuStyle}">
+                <MenuItem Header="_ColorFill" Click="changeFill"/>
+                <MenuItem Header="_ColorStroke" Click="changeStroke"/>
+                <MenuItem Header="_StrokeThickness" Click="changeStrokeThickness"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>
