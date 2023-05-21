@@ -9,6 +9,8 @@ namespace VectorDrawPRO.Code.Models;
 
 public class Diamond : Shape
 {
+    bool individualEditmode = false;
+
     public override void Draw(Canvas canvas)
     {
         Polygon polygon = new Polygon();
@@ -18,19 +20,44 @@ public class Diamond : Shape
         polygon.Points.Add(new Point(X, Y + Height / 2));
         polygon.Stroke = Brushes.Black;
         canvas.Children.Add(polygon);
+        
+        canvas.MouseLeftButtonDown += (sender, e) =>
+         {
+            if (IsMouseOver(e.GetPosition(canvas)))
+            {
+                if(individualEditmode == false && EditMode == false)
+                {
+                    polygon.Fill = Brushes.Red;
+                    individualEditmode = true;
+                    EditMode = true;
+                }
+            }
+            else
+            {
+                if (individualEditmode)
+                {
+                    polygon.Fill = Brushes.Transparent;
+                    individualEditmode = false;
+                    EditMode = false;
+                }
+            }
+         };
     }
     
-    private bool IsPointInsideDiamond(Point point, double x, double y, double width, double height)
+    // quand il y a un clic sur la forme, on change la couleur de la forme en rouge et son intérieur aussi
+    
+    
+    
+    
+    public bool IsMouseOver(Point mousePosition)
     {
-        // Calculer les coordonnées du centre du losange
-        double centerX = x + width / 2;
-        double centerY = y + height / 2;
-
-        // Calculer les distances entre le point et le centre du losange
-        double dx = Math.Abs(point.X - centerX);
-        double dy = Math.Abs(point.Y - centerY);
-
-        // Vérifier si le point est à l'intérieur du losange
-        return (dx / width) + (dy / height) <= 0.5;
+        if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y && mousePosition.Y <= Y + Height)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
