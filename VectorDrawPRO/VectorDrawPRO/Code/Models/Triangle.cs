@@ -20,22 +20,32 @@ public class Triangle : Shape
         
         canvas.MouseLeftButtonDown += (sender, e) =>
         {
-            if (IsMouseOver(e.GetPosition(canvas)))
+            if (!eraserMode)
             {
-                if(individualEditmode == false && EditMode == false)
+                if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    polygon.Fill = Brushes.Red;
-                    individualEditmode = true;
-                    EditMode = true;
+                    if(individualEditmode == false && EditMode == false)
+                    {
+                        polygon.Fill = Brushes.Red;
+                        individualEditmode = true;
+                        EditMode = true;
+                    }
+                }
+                else
+                {
+                    if (individualEditmode)
+                    {
+                        polygon.Fill = Brushes.Transparent;
+                        individualEditmode = false;
+                        EditMode = false;
+                    }
                 }
             }
             else
             {
-                if (individualEditmode)
+                if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    polygon.Fill = Brushes.Transparent;
-                    individualEditmode = false;
-                    EditMode = false;
+                    canvas.Children.Remove(polygon);
                 }
             }
         };

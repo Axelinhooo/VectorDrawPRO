@@ -29,7 +29,7 @@
                 <Separator/>
                 <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <Separator/>
-                <MenuItem Header="_Eraser" Command="{Binding Path=EraserCommand}"/>
+                <MenuItem Header="_Eraser" Click="selectEraserCommand"/>
             </MenuItem>
             <MenuItem Header="_Shapes">
                 <MenuItem Header="_Cercle" Click="selectCircleCommand"/>

@@ -23,24 +23,34 @@ public class Diamond : Shape
         
         canvas.MouseLeftButtonDown += (sender, e) =>
          {
-            if (IsMouseOver(e.GetPosition(canvas)))
-            {
-                if(individualEditmode == false && EditMode == false)
-                {
-                    polygon.Fill = Brushes.Red;
-                    individualEditmode = true;
-                    EditMode = true;
-                }
-            }
-            else
-            {
-                if (individualEditmode)
-                {
-                    polygon.Fill = Brushes.Transparent;
-                    individualEditmode = false;
-                    EditMode = false;
-                }
-            }
+             if (!eraserMode)
+             {
+                 if (IsMouseOver(e.GetPosition(canvas)))
+                 {
+                     if(individualEditmode == false && EditMode == false)
+                     {
+                         polygon.Fill = Brushes.Red;
+                         individualEditmode = true;
+                         EditMode = true;
+                     }
+                 }
+                 else
+                 {
+                     if (individualEditmode)
+                     {
+                         polygon.Fill = Brushes.Transparent;
+                         individualEditmode = false;
+                         EditMode = false;
+                     }
+                 }
+             }
+             else
+             {
+                 if (IsMouseOver(e.GetPosition(canvas)))
+                 {
+                     canvas.Children.Remove(polygon);
+                 }
+             }
          };
     }
     

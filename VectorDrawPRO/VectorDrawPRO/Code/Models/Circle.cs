@@ -27,22 +27,32 @@ public class Circle : Shape
         
         canvas.MouseLeftButtonDown += (sender, e) =>
         {
-            if (IsMouseOver(e.GetPosition(canvas)))
+            if (!eraserMode)
             {
-                if(individualEditmode == false && EditMode == false)
-                {
-                    ellipse.Fill = Brushes.Red;
-                    individualEditmode = true;
-                    EditMode = true;
-                }
+               if (IsMouseOver(e.GetPosition(canvas)))
+               {
+                   if(individualEditmode == false && EditMode == false)
+                   {
+                       ellipse.Fill = Brushes.Red;
+                       individualEditmode = true;
+                       EditMode = true;
+                   }
+               }
+               else
+               {
+                   if (individualEditmode)
+                   {
+                       ellipse.Fill = Brushes.Transparent;
+                       individualEditmode = false;
+                       EditMode = false;
+                   }
+               } 
             }
             else
             {
-                if (individualEditmode)
+                if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    ellipse.Fill = Brushes.Transparent;
-                    individualEditmode = false;
-                    EditMode = false;
+                    canvas.Children.Remove(ellipse);
                 }
             }
         };

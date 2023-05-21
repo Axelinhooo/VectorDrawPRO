@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VectorDrawPRO.Code.ViewModels;
 using Shape = VectorDrawPRO.Code.Models.Shape;
 
@@ -65,9 +53,14 @@ namespace VectorDrawPRO
             CreateDiamondCommand._isSelected = true;
         }
         
+        private void selectEraserCommand(object sender, RoutedEventArgs e)
+        {
+            Shape.eraserMode = !Shape.eraserMode;
+        }
+        
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Shape.EditMode == false)
+            if (Shape.EditMode == false && Shape.eraserMode == false)
             {
                if (CreateCircleCommand._isSelected)
                {

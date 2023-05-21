@@ -9,6 +9,8 @@ public abstract class Shape
     public double Width { get; set; }
     public double Height { get; set; }
     public static bool EditMode { get; set; } = false;
+    
+    public static bool eraserMode = false;
 
     public abstract void Draw(Canvas canvas);
 }

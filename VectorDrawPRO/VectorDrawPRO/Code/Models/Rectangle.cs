@@ -25,24 +25,35 @@ public class Rectangle : Shape
         
         canvas.MouseLeftButtonDown += (sender, e) =>
         {
-            if (IsMouseOver(e.GetPosition(canvas)))
+            if (!eraserMode)
             {
-                if(individualEditmode == false && EditMode == false)
+                if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    rect.Fill = Brushes.Red;
-                    individualEditmode = true;
-                    EditMode = true;
+                    if(individualEditmode == false && EditMode == false)
+                    {
+                        rect.Fill = Brushes.Red;
+                        individualEditmode = true;
+                        EditMode = true;
+                    }
+                }
+                else
+                {
+                    if (individualEditmode)
+                    {
+                        rect.Fill = Brushes.Transparent;
+                        individualEditmode = false;
+                        EditMode = false;
+                    }
                 }
             }
             else
             {
-                if (individualEditmode)
+                if (IsMouseOver(e.GetPosition(canvas)))
                 {
-                    rect.Fill = Brushes.Transparent;
-                    individualEditmode = false;
-                    EditMode = false;
+                    canvas.Children.Remove(rect);
                 }
             }
+            
         };
     }
     
