@@ -10,23 +10,27 @@ namespace VectorDrawPRO.Code.Models;
 public class Diamond : Shapes
 {
     bool individualEditmode = false;
-    Polygon polygon;
-
+    Lazy<Polygon> polygon;
+        
     public override void Draw(Canvas canvas)
     {
-        polygon = new Polygon();
-        polygon.Points.Add(new Point(X + Width / 2, Y));
-        polygon.Points.Add(new Point(X + Width, Y + Height / 2));
-        polygon.Points.Add(new Point(X + Width / 2, Y + Height));
-        polygon.Points.Add(new Point(X, Y + Height / 2));
-        polygon.Stroke = Brushes.Black;
-        canvas.Children.Add(polygon);
-        
-        AddMouseLeftButtonDownEvent(polygon, canvas);
+        polygon = new Lazy<Polygon>(() =>
+        {
+            Polygon p = new Polygon();
+            p.Points.Add(new Point(X + Width / 2, Y));
+            p.Points.Add(new Point(X + Width, Y + Height / 2));
+            p.Points.Add(new Point(X + Width / 2, Y + Height));
+            p.Points.Add(new Point(X, Y + Height / 2));
+            p.Stroke = Brushes.Black;
+            AddMouseLeftButtonDownEvent(p, canvas);
+            return p;
+        });
+
+        canvas.Children.Add(polygon.Value);
     }
     
     public Shape GetShape()
     {
-        return polygon;
+        return polygon.Value;
     }
 }
