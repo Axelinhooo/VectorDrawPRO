@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.ViewModels;
 using VectorDrawPRO.Code.Views;
@@ -13,93 +11,93 @@ namespace VectorDrawPRO
 {
     public partial class MainWindow : Window
     {
-        MenuItem itemSelected;
-        public ColorPicker colorPicker { get; set; }
+        private MenuItem _selectedMenuItem;
+        public ColorPicker ColorPicker { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            canvas.MouseDown += Canvas_MouseDown;
+            canvas.MouseDown += OnCanvasMouseDown;
             Shapes.EditShapeMenuItem = EditShapeMenuItem;
             Shapes.SaveShapeMenuItem = SaveShapeMenuItem;
 
-            KeyDown += MainWindow_KeyDown;
+            KeyDown += OnMainWindowKeyDown;
         }
 
-        private bool checkIfOneButtonIsSelected()
+        private bool CheckIfOneButtonIsSelected()
         {
             return CreateCircleCommand.IsSelected || CreateRectangleCommand.IsSelected ||
                    CreateTriangleCommand.IsSelected || CreateDiamondCommand.IsSelected;
         }
 
-        private void selectOne(ICommand shape, object sender)
+        private void SelectOne(ICommand shape, object sender)
         {
             CreateCircleCommand.IsSelected = shape is CreateCircleCommand ? !CreateCircleCommand.IsSelected : false;
             CreateRectangleCommand.IsSelected = shape is CreateRectangleCommand ? !CreateRectangleCommand.IsSelected : false;
             CreateTriangleCommand.IsSelected = shape is CreateTriangleCommand ? !CreateTriangleCommand.IsSelected : false;
             CreateDiamondCommand.IsSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand.IsSelected : false;
-            Cursor = checkIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
+            Cursor = CheckIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
             Shapes.EraserMode = false;
             ResetMenuItemStyles();
-            MenuItem menuItem = sender as MenuItem;
+            var menuItem = sender as MenuItem;
             menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
-            itemSelected = menuItem;
+            _selectedMenuItem = menuItem;
         }
 
         private void ResetMenuItemStyles()
         {
-            if (itemSelected != null)
+            if (_selectedMenuItem != null)
             {
-                itemSelected.Style = null;
+                _selectedMenuItem.Style = null;
             }
         }
 
-        private void selectCircleCommand(object sender, RoutedEventArgs e)
+        private void SelectCircleCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateCircleCommand(canvas), sender);
+            SelectOne(new CreateCircleCommand(canvas), sender);
         }
 
-        private void selectRectangleCommand(object sender, RoutedEventArgs e)
+        private void SelectRectangleCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateRectangleCommand(canvas), sender);
+            SelectOne(new CreateRectangleCommand(canvas), sender);
         }
 
-        private void selectTriangleCommand(object sender, RoutedEventArgs e)
+        private void SelectTriangleCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateTriangleCommand(canvas), sender);
+            SelectOne(new CreateTriangleCommand(canvas), sender);
         }
 
-        private void selectDiamondCommand(object sender, RoutedEventArgs e)
+        private void SelectDiamondCommand(object sender, RoutedEventArgs e)
         {
-            selectOne(new CreateDiamondCommand(canvas), sender);
+            SelectOne(new CreateDiamondCommand(canvas), sender);
         }
 
-        private void undo(object sender, RoutedEventArgs e)
+        private void Undo(object sender, RoutedEventArgs e)
         {
             Shapes.Undo(canvas);
         }
 
-        private void redo(object sender, RoutedEventArgs e)
+        private void Redo(object sender, RoutedEventArgs e)
         {
             Shapes.Redo(canvas);
         }
 
-        private void selectEraserCommand(object sender, RoutedEventArgs e)
+        private void SelectEraserCommand(object sender, RoutedEventArgs e)
         {
             Shapes.EraserMode = !Shapes.EraserMode;
             Cursor = Shapes.EraserMode ? Cursors.Cross : Cursors.Arrow;
             ResetMenuItemStyles();
-            MenuItem menuItem = sender as MenuItem;
+            var menuItem = sender as MenuItem;
             menuItem.Style = (Style)FindResource("SelectedMenuItemStyle");
-            itemSelected = menuItem;
+            _selectedMenuItem = menuItem;
         }
 
-        private void exit(object sender, RoutedEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void changeFill(object sender, RoutedEventArgs e)
+        private void ChangeFill(object sender, RoutedEventArgs e)
         {
             if ((Color)fillPicker.SelectedColor != null)
             {
@@ -108,16 +106,16 @@ namespace VectorDrawPRO
             }
         }
 
-        private void changeStroke(object sender, RoutedEventArgs e)
+        private void ChangeStroke(object sender, RoutedEventArgs e)
         {
             if ((Color)strokePicker.SelectedColor != null)
             {
-              Shapes.SelectedShape.Stroke = new SolidColorBrush((Color)strokePicker.SelectedColor);
-              SaveShapeMenuItem.Visibility = Visibility.Visible;  
+                Shapes.SelectedShape.Stroke = new SolidColorBrush((Color)strokePicker.SelectedColor);
+                SaveShapeMenuItem.Visibility = Visibility.Visible;  
             }
         }
 
-        private void changeStrokeThickness(object sender, RoutedEventArgs e)
+        private void ChangeStrokeThickness(object sender, RoutedEventArgs e)
         {
             if (double.TryParse(thicknessBox.Text, out double output))
             {
@@ -134,45 +132,45 @@ namespace VectorDrawPRO
 
         private void New(object sender, RoutedEventArgs e)
         {
-            MainWindow newWindow = new MainWindow();
+            var newWindow = new MainWindow();
             newWindow.Show();
             Close();
         }
 
         private void About(object sender, RoutedEventArgs e)
         {
-            AboutWindow aboutWindow = new AboutWindow();
+            var aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
 
-        private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        private void OnCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!Shapes.EditMode && !Shapes.EraserMode)
             {
                 if (CreateCircleCommand.IsSelected)
                 {
-                    CreateCircleCommand command = new CreateCircleCommand(canvas);
+                    var command = new CreateCircleCommand(canvas);
                     command.Execute(canvas);
                 }
                 else if (CreateRectangleCommand.IsSelected)
                 {
-                    CreateRectangleCommand command = new CreateRectangleCommand(canvas);
+                    var command = new CreateRectangleCommand(canvas);
                     command.Execute(canvas);
                 }
                 else if (CreateTriangleCommand.IsSelected)
                 {
-                    CreateTriangleCommand command = new CreateTriangleCommand(canvas);
+                    var command = new CreateTriangleCommand(canvas);
                     command.Execute(canvas);
                 }
                 else if (CreateDiamondCommand.IsSelected)
                 {
-                    CreateDiamondCommand command = new CreateDiamondCommand(canvas);
+                    var command = new CreateDiamondCommand(canvas);
                     command.Execute(canvas);
                 }
             }
         }
 
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        private void OnMainWindowKeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control)
             {

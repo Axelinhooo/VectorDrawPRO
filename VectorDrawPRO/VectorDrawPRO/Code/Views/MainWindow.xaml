@@ -36,29 +36,29 @@
         <Menu Name="Menu">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="{Binding Path=NewCommand}" Click="New"/>
-                <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}" Click="exit"/>
+                <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}" Click="Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" Command="{Binding Path=UndoCommand}" InputGestureText="Ctrl+Z" Click="undo"/>
+                <MenuItem Header="_Undo" Command="{Binding Path=UndoCommand}" InputGestureText="Ctrl+Z" Click="Undo"/>
                 <Separator/>
-                <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}" InputGestureText="Ctrl+Y" Click="redo"/>
+                <MenuItem Header="_Redo" Command="{Binding Path=RedoCommand}" InputGestureText="Ctrl+Y" Click="Redo"/>
                 <Separator/>
-                <MenuItem Header="_Eraser" Click="selectEraserCommand"/>
+                <MenuItem Header="_Eraser" Click="SelectEraserCommand"/>
             </MenuItem>
             <MenuItem Header="_Shapes">
-                <MenuItem Header="_Cercle" Click="selectCircleCommand"/>
-                <MenuItem Header="_Rectangle" Click="selectRectangleCommand"/>
-                <MenuItem Header="_Losange" Click="selectDiamondCommand"/>
-                <MenuItem Header="_Triangle" Click="selectTriangleCommand"/>
+                <MenuItem Header="_Cercle" Click="SelectCircleCommand"/>
+                <MenuItem Header="_Rectangle" Click="SelectRectangleCommand"/>
+                <MenuItem Header="_Losange" Click="SelectDiamondCommand"/>
+                <MenuItem Header="_Triangle" Click="SelectTriangleCommand"/>
             </MenuItem>
             <MenuItem Header="_Edit Shape" Name="EditShapeMenuItem" Visibility="Collapsed" Style="{StaticResource SubMenuStyle}">
-                <MenuItem Header="_ColorFill" Click="changeFill">
+                <MenuItem Header="_ColorFill" Click="ChangeFill">
                     <xctk:ColorPicker Name="fillPicker" SelectedColor="{Binding Path=SelectedShape.Fill, Mode=TwoWay}" />
                 </MenuItem>
-                <MenuItem Header="_ColorStroke" Click="changeStroke">
+                <MenuItem Header="_ColorStroke" Click="ChangeStroke">
                     <xctk:ColorPicker Name="strokePicker" SelectedColor="{Binding Path=SelectedShape.Stroke, Mode=TwoWay}" />
                 </MenuItem>
-                <MenuItem Header="_StrokeThickness" Click="changeStrokeThickness">
+                <MenuItem Header="_StrokeThickness" Click="ChangeStrokeThickness">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Thickness:" Margin="0,0,5,0" VerticalAlignment="Center" />
                         <TextBox x:Name="thicknessBox" Text="{Binding Path=SelectedShape.StrokeThickness, Mode=TwoWay}" Width="50" VerticalAlignment="Center" />
