@@ -27,7 +27,7 @@ public class CreateCircleCommand : ICommand
         {
             Point mousePosition = Mouse.GetPosition(canvas);
 
-            Circle circle = new Circle()
+            Circle circle = new Circle(Convert.ToInt32(mousePosition.X),Convert.ToInt32(mousePosition.Y),100 ,75 ,50)
             {
                 X = Convert.ToInt32(mousePosition.X),
                 Y = Convert.ToInt32(mousePosition.Y),

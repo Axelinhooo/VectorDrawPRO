@@ -28,12 +28,11 @@ public class CreateRectangleCommand : ICommand
             Point mousePosition = Mouse.GetPosition(canvas);
 
             Rectangle rectangle = new Rectangle
-            {
-                X = Convert.ToInt32(mousePosition.X) - 50,
-                Y = Convert.ToInt32(mousePosition.Y) - 50,
-                Width = 100,
-                Height = 75
-            };
+            (
+                Convert.ToInt32(mousePosition.X) - 50,
+                Convert.ToInt32(mousePosition.Y) - 50, 
+                100, 75
+            );
 
             rectangle.Draw(canvas);
         }

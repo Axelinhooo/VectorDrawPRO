@@ -6,39 +6,38 @@ using System.Windows.Shapes;
 
 namespace VectorDrawPRO.Code.Models
 {
-    using System.Windows.Controls;
-    using System.Windows.Media;
-    using System.Windows.Shapes;
-
-    namespace VectorDrawPRO.Code.Models
+    public class Triangle : Shapes
     {
-        public class Triangle : Shapes
-        {
-            bool individualEditmode = false;
-            Lazy<Polygon> polygon;
-        
-            public override void Draw(Canvas canvas)
-            {
-                polygon = new Lazy<Polygon>(() =>
-                {
-                    Polygon p = new Polygon();
-                    p.Points.Add(new Point(X, Y + Height));
-                    p.Points.Add(new Point(X + Width / 2, Y));
-                    p.Points.Add(new Point(X + Width, Y + Height));
-                    p.Stroke = Brushes.Black;
-                    return p;
-                });
+        private readonly Lazy<Polygon> polygon;
 
-                canvas.Children.Add(polygon.Value);
-                
-                AddMouseLeftButtonDownEvent(polygon.Value, canvas);
-                addMemento(polygon.Value);
-            }
-        
-            public Shape GetShape()
+        public Triangle(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+
+            polygon = new Lazy<Polygon>(() =>
             {
-                return polygon.Value;
-            }
+                Polygon p = new Polygon();
+                p.Points.Add(new Point(X, Y + Height));
+                p.Points.Add(new Point(X + Width / 2, Y));
+                p.Points.Add(new Point(X + Width, Y + Height));
+                p.Stroke = Brushes.Black;
+                return p;
+            });
+        }
+
+        public override void Draw(Canvas canvas)
+        {
+            canvas.Children.Add(polygon.Value);
+            AddMouseLeftButtonDownEvent(polygon.Value, canvas);
+            addMemento(polygon.Value);
+        }
+
+        public Polygon GetPolygon()
+        {
+            return polygon.Value;
         }
     }
 }

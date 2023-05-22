@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VectorDrawPRO.Code.Models;
-using VectorDrawPRO.Code.Models.VectorDrawPRO.Code.Models;
 
 namespace VectorDrawPRO.Code.ViewModels;
 
@@ -28,13 +27,12 @@ public class CreateDiamondCommand : ICommand
         {
             Point mousePosition = Mouse.GetPosition(canvas);
 
-            Diamond rectangle = new Diamond()
-            {
-                X = Convert.ToInt32(mousePosition.X) - 50,
-                Y = Convert.ToInt32(mousePosition.Y) - 50,
-                Width = 100,
-                Height = 100
-            };
+            Diamond rectangle = new Diamond
+            (
+                Convert.ToInt32(mousePosition.X) - 50,
+                Convert.ToInt32(mousePosition.Y) - 50, 
+             100, 100
+            );
 
             rectangle.Draw(canvas);
         }

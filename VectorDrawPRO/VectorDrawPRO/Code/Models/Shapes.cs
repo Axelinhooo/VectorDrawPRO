@@ -5,143 +5,151 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace VectorDrawPRO.Code.Models;
-
-public abstract class Shapes
+namespace VectorDrawPRO.Code.Models
 {
-    public double X { get; set; }
-    public double Y { get; set; }
-    public double Width { get; set; }
-    public double Height { get; set; }
-    public static bool EditMode { get; set; } = false;
-    
-    public static bool EraserMode = false;
-
-    public static MenuItem EditShapeMenuItem;
-    
-    public static MenuItem SaveShapeMenuItem; 
-    
-    public static Shape SelectedShape;
-    
-    private bool individualEditmode;
-
-    public static List<ShapeMemento> undoStack = new List<ShapeMemento>();
-    public static List<ShapeMemento> redoStack = new List<ShapeMemento>();
-
-    public abstract void Draw(Canvas canvas);
-
-    public void AddMouseLeftButtonDownEvent(Shape shape, Canvas canvas)
+    public abstract class Shapes
     {
-        canvas.MouseLeftButtonDown += (sender, e) =>
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+
+        private bool individualEditmode;
+
+        private static readonly List<ShapeMemento> undoStack = new List<ShapeMemento>();
+        private static readonly List<ShapeMemento> redoStack = new List<ShapeMemento>();
+
+        public static bool EditMode { get; set; } = false;
+        public static bool EraserMode = false;
+        public static MenuItem EditShapeMenuItem;
+        public static MenuItem SaveShapeMenuItem;
+        public static Shape SelectedShape;
+
+        public abstract void Draw(Canvas canvas);
+
+        public void AddMouseLeftButtonDownEvent(Shape shape, Canvas canvas)
         {
-            if (!EraserMode)
+            canvas.MouseLeftButtonDown += (sender, e) =>
             {
-                if (IsMouseOver(e.GetPosition(canvas)))
+                if (!EraserMode)
                 {
-                    if(individualEditmode == false && EditMode == false)
+                    if (IsMouseOver(e.GetPosition(canvas)))
                     {
-                        SelectedShape = shape;
-                        addMemento(shape);
-                        
-                        shape.Fill = Brushes.Red;
-                        individualEditmode = true;
-                        EditMode = true;
-                        EditShapeMenuItem.Visibility = Visibility.Visible;
+                        if (individualEditmode == false && EditMode == false)
+                        {
+                            SelectedShape = shape;
+                            addMemento(shape);
+                            shape.Fill = Brushes.Red;
+                            individualEditmode = true;
+                            EditMode = true;
+                            EditShapeMenuItem.Visibility = Visibility.Visible;
+                        }
+                    }
+                    else
+                    {
+                        if (individualEditmode)
+                        {
+                            if (undoStack.Count > 0)
+                            {
+                                SelectedShape.Fill = getLatestMemento().Fill;
+                                SelectedShape.Stroke = getLatestMemento().Stroke;
+                                SelectedShape.StrokeThickness = getLatestMemento().StrokeThickness;
+                            }
+
+                            individualEditmode = false;
+                            EditMode = false;
+                            EditShapeMenuItem.Visibility = Visibility.Collapsed;
+                            SaveShapeMenuItem.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
                 else
                 {
-                    if (individualEditmode)
+                    if (IsMouseOver(e.GetPosition(canvas)))
                     {
-                        if (undoStack.Count > 0)
-                        {
-                            SelectedShape.Fill = getLatestMemento().Fill;
-                            SelectedShape.Stroke = getLatestMemento().Stroke;
-                            SelectedShape.StrokeThickness = getLatestMemento().StrokeThickness;
-                        }
-                        individualEditmode = false;
-                        EditMode = false;
-                        EditShapeMenuItem.Visibility = Visibility.Collapsed;
-                        SaveShapeMenuItem.Visibility = Visibility.Collapsed;
+                        canvas.Children.Remove(shape);
                     }
                 }
-            }
-            else
+            };
+        }
+
+        public bool IsMouseOver(Point mousePosition)
+        {
+            if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y &&
+                mousePosition.Y <= Y + Height)
             {
-                if (IsMouseOver(e.GetPosition(canvas)))
+                return true;
+            }
+
+            return false;
+        }
+
+        public ShapeMemento getLatestMemento()
+        {
+            return undoStack.LastOrDefault();
+        }
+
+        private static void SetDefaultShapeProperties(Shape shape)
+        {
+            shape.StrokeThickness = 1;
+            shape.Stroke = Brushes.Black;
+        }
+
+        public static void addMemento(Shape shape)
+        {
+            undoStack.Add(new ShapeMemento(shape, shape.Fill, shape.Stroke, shape.StrokeThickness));
+        }
+
+        public static void Undo(Canvas canvas)
+        {
+            if (undoStack.Count > 0)
+            {
+                ShapeMemento lastform = undoStack.LastOrDefault();
+
+                if (lastform.Shape.Fill == null)
                 {
-                    canvas.Children.Remove(shape);
+                    redoStack.Add(lastform);
+                    canvas.Children.Remove(lastform.Shape);
+                    EditMode = false;
+                    EditShapeMenuItem.Visibility = Visibility.Collapsed;
+                    SaveShapeMenuItem.Visibility = Visibility.Collapsed;
+                    undoStack.Remove(lastform);
+                }
+                else
+                {
+                    redoStack.Add(lastform);
+                    
+                    lastform.Shape.Fill = lastform.Fill;
+                    lastform.Shape.Stroke = lastform.Stroke;
+                    lastform.Shape.StrokeThickness = lastform.StrokeThickness;
+                    
+                    undoStack.Remove(lastform);
                 }
             }
-        };
-    }
-    
-    public bool IsMouseOver(Point mousePosition)
-    {
-        if (mousePosition.X >= X && mousePosition.X <= X + Width && mousePosition.Y >= Y && mousePosition.Y <= Y + Height)
-        {
-            return true;
         }
-        return false;
-    }
-    
-    public ShapeMemento getLatestMemento()
-    {
-        return undoStack[undoStack.Count - 1];
-    }
-    
-    public static void addMemento(Shape shape)
-    {
-        undoStack.Add(new ShapeMemento(shape ,shape.Fill, shape.Stroke, shape.StrokeThickness));
-    }
-    
-    public static void Undo(Canvas canvas)
-    {
-        if (undoStack.Count > 0)
-        {
-            ShapeMemento lastform = undoStack[undoStack.Count - 1];
-            if (lastform.Shape.Fill == null)
-            {
-               redoStack.Add(lastform);
-               canvas.Children.Remove(lastform.Shape);
-               EditMode = false;
-               EditShapeMenuItem.Visibility = Visibility.Collapsed;
-               SaveShapeMenuItem.Visibility = Visibility.Collapsed;
-               undoStack.RemoveAt(undoStack.Count - 1);
-            }
-            else
-            {
-                lastform.Shape.Fill = lastform.Fill;
-                lastform.Shape.Stroke = lastform.Stroke;
-                lastform.Shape.StrokeThickness = lastform.StrokeThickness;
-                
-                redoStack.Add(lastform);
-                undoStack.RemoveAt(undoStack.Count - 1);
-            }
-            
-        }
-    }
-    
-    public static void Redo(Canvas canvas)
-    {
-        if (redoStack.Count > 0)
-        { 
-            ShapeMemento lastform = redoStack[redoStack.Count - 1];
-            if (lastform.Shape.Fill == null)
-            {
-                undoStack.Add(lastform);
-                canvas.Children.Add(lastform.Shape);
-                redoStack.RemoveAt(redoStack.Count - 1);
-            }
-            else
-            {
-                lastform.Shape.Fill = lastform.Fill;
-                lastform.Shape.Stroke = lastform.Stroke;
-                lastform.Shape.StrokeThickness = lastform.StrokeThickness;
-               
-                redoStack.RemoveAt(redoStack.Count - 1); 
-            }
-        }
-    }
 
+        public static void Redo(Canvas canvas)
+        {
+            if (redoStack.Count > 0)
+            {
+                ShapeMemento lastform = redoStack.LastOrDefault();
+
+                if (!canvas.Children.Contains(lastform.Shape))
+                {
+                    undoStack.Add(lastform);
+                    canvas.Children.Add(lastform.Shape);
+                    redoStack.Remove(lastform);
+                }
+                else
+                {
+                    lastform.Shape.Fill = lastform.Fill;
+                    lastform.Shape.Stroke = lastform.Stroke;
+                    lastform.Shape.StrokeThickness = lastform.StrokeThickness;
+
+                    redoStack.Remove(lastform);
+                    undoStack.Add(lastform);
+                }
+            }
+        }
+    }
 }

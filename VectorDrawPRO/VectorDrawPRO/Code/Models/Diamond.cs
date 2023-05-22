@@ -1,38 +1,42 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace VectorDrawPRO.Code.Models;
-
-public class Diamond : Shapes
+namespace VectorDrawPRO.Code.Models
 {
-    bool individualEditmode = false;
-    Lazy<Polygon> polygon;
-        
-    public override void Draw(Canvas canvas)
+    public class Diamond : Shapes
     {
-        polygon = new Lazy<Polygon>(() =>
-        {
-            Polygon p = new Polygon();
-            p.Points.Add(new Point(X + Width / 2, Y));
-            p.Points.Add(new Point(X + Width, Y + Height / 2));
-            p.Points.Add(new Point(X + Width / 2, Y + Height));
-            p.Points.Add(new Point(X, Y + Height / 2));
-            p.Stroke = Brushes.Black;
-            return p;
-        });
+        private readonly Lazy<Polygon> polygon;
 
-        canvas.Children.Add(polygon.Value);
+        public Diamond(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+
+            polygon = new Lazy<Polygon>(() =>
+            {
+                var shape = new Polygon();
+                shape.Points.Add(new Point(X + Width / 2, Y));
+                shape.Points.Add(new Point(X + Width, Y + Height / 2));
+                shape.Points.Add(new Point(X + Width / 2, Y + Height));
+                shape.Points.Add(new Point(X, Y + Height / 2));
+                shape.Stroke = Brushes.Black;
+                shape.StrokeThickness = 1;
+                return shape;
+            });
+        }
+
+        public override void Draw(Canvas canvas)
+        {
+            canvas.Children.Add(polygon.Value);
+
+            AddMouseLeftButtonDownEvent(polygon.Value, canvas);
+            addMemento(polygon.Value);
+        }
         
-        AddMouseLeftButtonDownEvent(polygon.Value, canvas);
-        addMemento(polygon.Value);
-    }
-    
-    public Shape GetShape()
-    {
-        return polygon.Value;
     }
 }

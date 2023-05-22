@@ -7,11 +7,15 @@ namespace VectorDrawPRO.Code.Models
 {
     public class Rectangle : Shapes
     {
-        bool individualEditmode = false;
-        Lazy<System.Windows.Shapes.Rectangle> rect;
-        
-        public override void Draw(Canvas canvas)
+        private readonly Lazy<System.Windows.Shapes.Rectangle> rect;
+
+        public Rectangle(int x, int y, int width, int height)
         {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+
             rect = new Lazy<System.Windows.Shapes.Rectangle>(() => new System.Windows.Shapes.Rectangle
             {
                 Width = Width,
@@ -19,19 +23,17 @@ namespace VectorDrawPRO.Code.Models
                 Stroke = Brushes.Black,
                 StrokeThickness = 1
             });
+        }
 
+        public override void Draw(Canvas canvas)
+        {
             Canvas.SetLeft(rect.Value, X);
             Canvas.SetTop(rect.Value, Y);
 
             canvas.Children.Add(rect.Value);
-            
+
             AddMouseLeftButtonDownEvent(rect.Value, canvas);
             addMemento(rect.Value);
-        }
-        
-        public Shape GetShape()
-        {
-            return rect.Value;
         }
     }
 }
