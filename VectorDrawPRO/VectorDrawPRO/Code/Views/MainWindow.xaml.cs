@@ -28,16 +28,16 @@ namespace VectorDrawPRO
 
         private bool checkIfOneButtonIsSelected()
         {
-            return CreateCircleCommand._isSelected || CreateRectangleCommand._isSelected ||
-                   CreateTriangleCommand._isSelected || CreateDiamondCommand._isSelected;
+            return CreateCircleCommand.IsSelected || CreateRectangleCommand.IsSelected ||
+                   CreateTriangleCommand.IsSelected || CreateDiamondCommand.IsSelected;
         }
 
         private void selectOne(ICommand shape, object sender)
         {
-            CreateCircleCommand._isSelected = shape is CreateCircleCommand ? !CreateCircleCommand._isSelected : false;
-            CreateRectangleCommand._isSelected = shape is CreateRectangleCommand ? !CreateRectangleCommand._isSelected : false;
-            CreateTriangleCommand._isSelected = shape is CreateTriangleCommand ? !CreateTriangleCommand._isSelected : false;
-            CreateDiamondCommand._isSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand._isSelected : false;
+            CreateCircleCommand.IsSelected = shape is CreateCircleCommand ? !CreateCircleCommand.IsSelected : false;
+            CreateRectangleCommand.IsSelected = shape is CreateRectangleCommand ? !CreateRectangleCommand.IsSelected : false;
+            CreateTriangleCommand.IsSelected = shape is CreateTriangleCommand ? !CreateTriangleCommand.IsSelected : false;
+            CreateDiamondCommand.IsSelected = shape is CreateDiamondCommand ? !CreateDiamondCommand.IsSelected : false;
             Cursor = checkIfOneButtonIsSelected() ? Cursors.Pen : Cursors.Arrow;
             Shapes.EraserMode = false;
             ResetMenuItemStyles();
@@ -149,22 +149,22 @@ namespace VectorDrawPRO
         {
             if (!Shapes.EditMode && !Shapes.EraserMode)
             {
-                if (CreateCircleCommand._isSelected)
+                if (CreateCircleCommand.IsSelected)
                 {
                     CreateCircleCommand command = new CreateCircleCommand(canvas);
                     command.Execute(canvas);
                 }
-                else if (CreateRectangleCommand._isSelected)
+                else if (CreateRectangleCommand.IsSelected)
                 {
                     CreateRectangleCommand command = new CreateRectangleCommand(canvas);
                     command.Execute(canvas);
                 }
-                else if (CreateTriangleCommand._isSelected)
+                else if (CreateTriangleCommand.IsSelected)
                 {
                     CreateTriangleCommand command = new CreateTriangleCommand(canvas);
                     command.Execute(canvas);
                 }
-                else if (CreateDiamondCommand._isSelected)
+                else if (CreateDiamondCommand.IsSelected)
                 {
                     CreateDiamondCommand command = new CreateDiamondCommand(canvas);
                     command.Execute(canvas);

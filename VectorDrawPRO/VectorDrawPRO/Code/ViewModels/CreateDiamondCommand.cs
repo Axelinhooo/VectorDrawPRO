@@ -4,40 +4,41 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VectorDrawPRO.Code.Models;
 
-namespace VectorDrawPRO.Code.ViewModels;
-
-public class CreateDiamondCommand : ICommand
+namespace VectorDrawPRO.Code.ViewModels
 {
-    private readonly Canvas _canvas;
-    public static bool _isSelected = false;
-
-    public CreateDiamondCommand(Canvas canvas)
+    public class CreateDiamondCommand : ICommand
     {
-        _canvas = canvas;
-    }
+        private readonly Canvas canvas;
+        public static bool IsSelected = false;
 
-    public bool CanExecute(object parameter)
-    {
-        return true;
-    }
-
-    public void Execute(object parameter)
-    {
-        if (parameter is Canvas canvas)
+        public CreateDiamondCommand(Canvas canvas)
         {
-            Point mousePosition = Mouse.GetPosition(canvas);
-
-            Diamond rectangle = new Diamond
-            (
-                Convert.ToInt32(mousePosition.X) - 50,
-                Convert.ToInt32(mousePosition.Y) - 50, 
-             100, 100
-            );
-
-            rectangle.Draw(canvas);
+            this.canvas = canvas ?? throw new ArgumentNullException(nameof(canvas));
         }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            if (parameter is Canvas canvas)
+            {
+                Point mousePosition = Mouse.GetPosition(canvas);
+
+                Diamond diamond = new Diamond(
+                    Convert.ToInt32(mousePosition.X) - 50,
+                    Convert.ToInt32(mousePosition.Y) - 50,
+                    width: 100,
+                    height: 100
+                );
+
+                diamond.Draw(canvas);
+                IsSelected = true;
+            }
+        }
+
+        public event EventHandler CanExecuteChanged;
     }
-
-
-    public event EventHandler CanExecuteChanged;
 }
