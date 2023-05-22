@@ -2,7 +2,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.Models.VectorDrawPRO.Code.Models;
 
 namespace VectorDrawPRO.Code.ViewModels;
