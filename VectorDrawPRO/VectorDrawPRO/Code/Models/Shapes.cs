@@ -102,12 +102,9 @@ public abstract class Shapes
         {
             if (undoStack[undoStack.Count - 1].Shape.Fill == null)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                   redoStack.Add(undoStack[undoStack.Count - 1]);
-                   canvas.Children.Remove(undoStack[undoStack.Count - 1].Shape);
-                   undoStack.RemoveAt(undoStack.Count - 1); 
-                }
+               redoStack.Add(undoStack[undoStack.Count - 1]);
+               canvas.Children.Remove(undoStack[undoStack.Count - 1].Shape);
+               undoStack.RemoveAt(undoStack.Count - 1);
             }
             else
             {
@@ -138,12 +135,9 @@ public abstract class Shapes
         { 
             if (redoStack[redoStack.Count - 1].Shape.Fill == null)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    undoStack.Add(redoStack[redoStack.Count - 1]);
-                    canvas.Children.Add(redoStack[redoStack.Count - 1].Shape);
-                    redoStack.RemoveAt(redoStack.Count - 1); 
-                }
+                undoStack.Add(redoStack[redoStack.Count - 1]);
+                canvas.Children.Add(redoStack[redoStack.Count - 1].Shape);
+                redoStack.RemoveAt(redoStack.Count - 1);
             }
             else
             {
