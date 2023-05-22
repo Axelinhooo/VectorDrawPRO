@@ -29,6 +29,8 @@ namespace VectorDrawPRO.Code.Models
                     AddMouseLeftButtonDownEvent(p, canvas);
                     return p;
                 });
+                
+                undoStack.Add(new ShapeMemento(polygon.Value, polygon.Value.Fill, polygon.Value.Stroke, polygon.Value.StrokeThickness));
 
                 canvas.Children.Add(polygon.Value);
             }

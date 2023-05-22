@@ -22,13 +22,17 @@ namespace VectorDrawPRO.Code.Models
                 Stroke = Brushes.Black,
                 StrokeThickness = 1
             });
+            
+            AddMouseLeftButtonDownEvent(ellipse.Value, canvas);
 
             Canvas.SetLeft(ellipse.Value, X - Radius);
             Canvas.SetTop(ellipse.Value, Y - Radius);
 
             canvas.Children.Add(ellipse.Value);
+            
+            undoStack.Add(new ShapeMemento(ellipse.Value, ellipse.Value.Fill, ellipse.Value.Stroke, ellipse.Value.StrokeThickness));
 
-            AddMouseLeftButtonDownEvent(ellipse.Value, canvas);
+            
         }
         
         public Shape GetShape()

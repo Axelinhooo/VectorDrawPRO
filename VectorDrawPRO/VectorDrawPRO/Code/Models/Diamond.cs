@@ -27,6 +27,8 @@ public class Diamond : Shapes
         });
 
         canvas.Children.Add(polygon.Value);
+        
+        undoStack.Add(new ShapeMemento(polygon.Value, polygon.Value.Fill, polygon.Value.Stroke, polygon.Value.StrokeThickness));
     }
     
     public Shape GetShape()

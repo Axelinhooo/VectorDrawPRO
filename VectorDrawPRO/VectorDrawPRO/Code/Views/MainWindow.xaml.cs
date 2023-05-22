@@ -82,12 +82,12 @@ namespace VectorDrawPRO
         
         private void undo(object sender, RoutedEventArgs e)
         {
-            Shapes.Undo();
+            Shapes.Undo(canvas);
         }
         
         private void redo(object sender, RoutedEventArgs e)
         {
-            Shapes.Redo();
+            Shapes.Redo(canvas);
         }
 
         private void selectEraserCommand(object sender, RoutedEventArgs e)
