@@ -27,7 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Code\img\" />
       <Folder Include="packages\" />
     </ItemGroup>
 
