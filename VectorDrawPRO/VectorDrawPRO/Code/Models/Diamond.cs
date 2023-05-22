@@ -22,13 +22,13 @@ public class Diamond : Shapes
             p.Points.Add(new Point(X + Width / 2, Y + Height));
             p.Points.Add(new Point(X, Y + Height / 2));
             p.Stroke = Brushes.Black;
-            AddMouseLeftButtonDownEvent(p, canvas);
             return p;
         });
 
         canvas.Children.Add(polygon.Value);
         
-        undoStack.Add(new ShapeMemento(polygon.Value, polygon.Value.Fill, polygon.Value.Stroke, polygon.Value.StrokeThickness));
+        AddMouseLeftButtonDownEvent(polygon.Value, canvas);
+        addMemento(polygon.Value);
     }
     
     public Shape GetShape()

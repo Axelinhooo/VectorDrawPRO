@@ -26,8 +26,7 @@ namespace VectorDrawPRO.Code.Models
             canvas.Children.Add(rect.Value);
             
             AddMouseLeftButtonDownEvent(rect.Value, canvas);
-            
-            undoStack.Add(new ShapeMemento(rect.Value, rect.Value.Fill, rect.Value.Stroke, rect.Value.StrokeThickness));
+            addMemento(rect.Value);
         }
         
         public Shape GetShape()

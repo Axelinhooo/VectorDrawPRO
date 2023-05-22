@@ -26,13 +26,13 @@ namespace VectorDrawPRO.Code.Models
                     p.Points.Add(new Point(X + Width / 2, Y));
                     p.Points.Add(new Point(X + Width, Y + Height));
                     p.Stroke = Brushes.Black;
-                    AddMouseLeftButtonDownEvent(p, canvas);
                     return p;
                 });
-                
-                undoStack.Add(new ShapeMemento(polygon.Value, polygon.Value.Fill, polygon.Value.Stroke, polygon.Value.StrokeThickness));
 
                 canvas.Children.Add(polygon.Value);
+                
+                AddMouseLeftButtonDownEvent(polygon.Value, canvas);
+                addMemento(polygon.Value);
             }
         
             public Shape GetShape()

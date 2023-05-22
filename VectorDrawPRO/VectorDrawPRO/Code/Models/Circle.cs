@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -30,9 +29,7 @@ namespace VectorDrawPRO.Code.Models
 
             canvas.Children.Add(ellipse.Value);
             
-            undoStack.Add(new ShapeMemento(ellipse.Value, ellipse.Value.Fill, ellipse.Value.Stroke, ellipse.Value.StrokeThickness));
-
-            
+            addMemento(ellipse.Value);
         }
         
         public Shape GetShape()

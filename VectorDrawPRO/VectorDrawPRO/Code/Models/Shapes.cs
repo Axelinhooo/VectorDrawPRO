@@ -24,9 +24,7 @@ public abstract class Shapes
     public static Shape SelectedShape;
     
     private bool individualEditmode;
-    
-    public static bool modified = false;
-   
+
     public static List<ShapeMemento> undoStack = new List<ShapeMemento>();
     public static List<ShapeMemento> redoStack = new List<ShapeMemento>();
 
@@ -60,14 +58,13 @@ public abstract class Shapes
                 {
                     if (individualEditmode)
                     {
-                        shape.Fill = undoStack[undoStack.Count - 1].Fill;
-                        shape.Stroke = undoStack[undoStack.Count - 1].Stroke;
-                        shape.StrokeThickness = undoStack[undoStack.Count - 1].StrokeThickness;
+                        shape.Fill = getLatestMemento().Fill;
+                        shape.Stroke = getLatestMemento().Stroke;
+                        shape.StrokeThickness = getLatestMemento().StrokeThickness;
                         individualEditmode = false;
                         EditMode = false;
                         EditShapeMenuItem.Visibility = Visibility.Collapsed;
                         SaveShapeMenuItem.Visibility = Visibility.Collapsed;
-                        modified = false;
                     }
                 }
             }
@@ -87,15 +84,17 @@ public abstract class Shapes
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
+    }
+    
+    public ShapeMemento getLatestMemento()
+    {
+        return undoStack[undoStack.Count - 1];
     }
     
     public static void addMemento(Shape shape)
     {
-        undoStack.Add(new ShapeMemento(shape ,SelectedShape.Fill, SelectedShape.Stroke, SelectedShape.StrokeThickness));
+        undoStack.Add(new ShapeMemento(shape ,shape.Fill, shape.Stroke, shape.StrokeThickness));
     }
     
     public static void Undo(Canvas canvas)
@@ -103,10 +102,10 @@ public abstract class Shapes
         if (undoStack.Count > 0)
         {
             ShapeMemento lastform = undoStack[undoStack.Count - 1];
-            if (undoStack[undoStack.Count - 1].Shape.Fill == null)
+            if (lastform.Shape.Fill == null)
             {
-               redoStack.Add(undoStack[undoStack.Count - 1]);
-               canvas.Children.Remove(undoStack[undoStack.Count - 1].Shape);
+               redoStack.Add(lastform);
+               canvas.Children.Remove(lastform.Shape);
                undoStack.RemoveAt(undoStack.Count - 1);
             }
             else
@@ -126,21 +125,20 @@ public abstract class Shapes
     {
         if (redoStack.Count > 0)
         { 
-            if (redoStack[redoStack.Count - 1].Shape.Fill == null)
+            ShapeMemento lastform = redoStack[redoStack.Count - 1];
+            if (lastform.Shape.Fill == null)
             {
-                undoStack.Add(redoStack[redoStack.Count - 1]);
-                canvas.Children.Add(redoStack[redoStack.Count - 1].Shape);
+                undoStack.Add(lastform);
+                canvas.Children.Add(lastform.Shape);
                 redoStack.RemoveAt(redoStack.Count - 1);
             }
             else
             {
-               ShapeMemento lastform = redoStack[redoStack.Count - 1];
+                lastform.Shape.Fill = lastform.Fill;
+                lastform.Shape.Stroke = lastform.Stroke;
+                lastform.Shape.StrokeThickness = lastform.StrokeThickness;
                
-               lastform.Shape.Fill = lastform.Fill;
-               lastform.Shape.Stroke = lastform.Stroke;
-               lastform.Shape.StrokeThickness = lastform.StrokeThickness;
-               
-               redoStack.RemoveAt(redoStack.Count - 1); 
+                redoStack.RemoveAt(redoStack.Count - 1); 
             }
         }
     }
