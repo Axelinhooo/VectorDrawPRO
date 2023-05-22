@@ -53,9 +53,12 @@ public abstract class Shapes
                 {
                     if (individualEditmode)
                     {
-                        shape.Fill = getLatestMemento().Fill;
-                        shape.Stroke = getLatestMemento().Stroke;
-                        shape.StrokeThickness = getLatestMemento().StrokeThickness;
+                        if (SelectedShape != null)
+                        {
+                            SelectedShape.Fill = getLatestMemento().Fill;
+                            SelectedShape.Stroke = getLatestMemento().Stroke;
+                            SelectedShape.StrokeThickness = getLatestMemento().StrokeThickness;
+                        }
                         individualEditmode = false;
                         EditMode = false;
                         EditShapeMenuItem.Visibility = Visibility.Collapsed;
