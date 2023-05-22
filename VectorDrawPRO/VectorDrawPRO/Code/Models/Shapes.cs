@@ -53,7 +53,7 @@ public abstract class Shapes
                 {
                     if (individualEditmode)
                     {
-                        if (SelectedShape != null)
+                        if (undoStack.Count > 0)
                         {
                             SelectedShape.Fill = getLatestMemento().Fill;
                             SelectedShape.Stroke = getLatestMemento().Stroke;
