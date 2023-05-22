@@ -30,11 +30,6 @@ public abstract class Shapes
 
     public abstract void Draw(Canvas canvas);
 
-    public void setStrokeColor(Brush color, Shape shape)
-    {
-        shape.Stroke = color;
-    }
-
     public void AddMouseLeftButtonDownEvent(Shape shape, Canvas canvas)
     {
         canvas.MouseLeftButtonDown += (sender, e) =>
@@ -107,6 +102,7 @@ public abstract class Shapes
                redoStack.Add(lastform);
                canvas.Children.Remove(lastform.Shape);
                undoStack.RemoveAt(undoStack.Count - 1);
+               EditShapeMenuItem.Visibility = Visibility.Collapsed;
             }
             else
             {
