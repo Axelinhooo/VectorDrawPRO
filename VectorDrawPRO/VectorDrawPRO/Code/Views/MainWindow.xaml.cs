@@ -21,6 +21,7 @@ namespace VectorDrawPRO
             InitializeComponent();
             canvas.MouseDown += Canvas_MouseDown;
             Shapes.EditShapeMenuItem = EditShapeMenuItem;
+            Shapes.SaveShapeMenuItem = SaveShapeMenuItem;
 
             KeyDown += MainWindow_KeyDown;
         }
@@ -101,13 +102,15 @@ namespace VectorDrawPRO
         private void changeFill(object sender, RoutedEventArgs e)
         {
             Shapes.SelectedShape.Fill = new SolidColorBrush((Color)fillPicker.SelectedColor);
-            Shapes.modified = true;
+            Shapes.modified = false;
+            SaveShapeMenuItem.Visibility = Visibility.Visible;
         }
 
         private void changeStroke(object sender, RoutedEventArgs e)
         {
             Shapes.SelectedShape.Stroke = new SolidColorBrush((Color)strokePicker.SelectedColor);
-            Shapes.modified = true;
+            Shapes.modified = false;
+            SaveShapeMenuItem.Visibility = Visibility.Visible;
         }
 
         private void changeStrokeThickness(object sender, RoutedEventArgs e)
@@ -115,8 +118,15 @@ namespace VectorDrawPRO
             if (double.TryParse(thicknessBox.Text, out double output))
             {
                 Shapes.SelectedShape.StrokeThickness = output;
-                Shapes.modified = true;
+                Shapes.modified = false;
+                SaveShapeMenuItem.Visibility = Visibility.Visible;
             }
+        }
+        
+        private void Save_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveShapeMenuItem.Visibility = Visibility.Collapsed;
+            Shapes.modified = true;
         }
 
         private void New(object sender, RoutedEventArgs e)

@@ -20,6 +20,8 @@ public abstract class Shapes
 
     public static MenuItem EditShapeMenuItem;
     
+    public static MenuItem SaveShapeMenuItem; 
+    
     public static Shape SelectedShape;
     
     private bool individualEditmode;
@@ -47,22 +49,31 @@ public abstract class Shapes
                 {
                     if(individualEditmode == false && EditMode == false)
                     {
+                        SelectedShape = shape;
+                        setMemento(shape);
+                        
                         shape.Fill = Brushes.Red;
                         individualEditmode = true;
                         EditMode = true;
                         EditShapeMenuItem.Visibility = Visibility.Visible;
-                        SelectedShape = shape;
+                        
                     }
                 }
                 else
                 {
                     if (individualEditmode)
                     {
-                        setMemento(shape);
-                        shape.Fill = modified? shape.Fill : Brushes.Transparent;
+                        if (modified)
+                        {
+                          setMemento(shape);
+                        }
+                        shape.Fill = memento.Fill;
+                        shape.Stroke = memento.Stroke;
+                        shape.StrokeThickness = memento.StrokeThickness;
                         individualEditmode = false;
                         EditMode = false;
                         EditShapeMenuItem.Visibility = Visibility.Collapsed;
+                        SaveShapeMenuItem.Visibility = Visibility.Collapsed;
                         modified = false;
                     }
                 }

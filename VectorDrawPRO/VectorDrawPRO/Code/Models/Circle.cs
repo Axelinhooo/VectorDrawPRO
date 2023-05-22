@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -9,7 +10,7 @@ namespace VectorDrawPRO.Code.Models
     {
         bool individualEditmode = false;
         Lazy<Ellipse> ellipse;
-
+        
         public int Radius { get; set; }
 
         public override void Draw(Canvas canvas)
@@ -21,17 +22,19 @@ namespace VectorDrawPRO.Code.Models
                 Stroke = Brushes.Black,
                 StrokeThickness = 1
             });
-
+            
             AddMouseLeftButtonDownEvent(ellipse.Value, canvas);
 
             Canvas.SetLeft(ellipse.Value, X - Radius);
             Canvas.SetTop(ellipse.Value, Y - Radius);
 
             canvas.Children.Add(ellipse.Value);
-
+            
             undoStack.Add(new ShapeMemento(ellipse.Value, ellipse.Value.Fill, ellipse.Value.Stroke, ellipse.Value.StrokeThickness));
-        }
 
+            
+        }
+        
         public Shape GetShape()
         {
             return ellipse.Value;

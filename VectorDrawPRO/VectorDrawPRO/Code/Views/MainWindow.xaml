@@ -18,6 +18,11 @@
             <Setter Property="Foreground" Value="Blue"/>
             <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}"/>
         </Style>
+        <Style x:Key="Save" TargetType="{x:Type MenuItem}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}"/>
+        </Style>
     </Window.Resources>
     
     
@@ -63,6 +68,7 @@
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}" Click="About"/>
             </MenuItem>
+            <MenuItem Header="_Save" Name="SaveShapeMenuItem" Style="{StaticResource Save}" Visibility="Collapsed" Click="Save_OnClick"/>
         </Menu>
 
         <Grid Grid.Row="1">
