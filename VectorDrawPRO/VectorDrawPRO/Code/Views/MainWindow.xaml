@@ -66,7 +66,7 @@
         </Menu>
 
         <Grid Grid.Row="1">
-            <Canvas x:Name="canvas" Background="White" MouseDown="Canvas_MouseDown"/>
+            <Canvas x:Name="canvas" Background="White"/>
         </Grid>
     </Grid>
 
