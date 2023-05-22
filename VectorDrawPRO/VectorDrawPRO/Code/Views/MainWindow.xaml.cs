@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.ViewModels;
+using VectorDrawPRO.Code.Views;
 using Xceed.Wpf.Toolkit;
 
 
@@ -116,6 +117,20 @@ namespace VectorDrawPRO
                 Shapes.SelectedShape.StrokeThickness =  output;
                 Shapes.modified = true;
             }
+        }
+        
+        private void New(object sender, RoutedEventArgs e)
+        {
+            
+            MainWindow newWindow = new MainWindow();
+            newWindow.Show();
+            Close();
+        }
+        
+        private void About(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
         }
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)

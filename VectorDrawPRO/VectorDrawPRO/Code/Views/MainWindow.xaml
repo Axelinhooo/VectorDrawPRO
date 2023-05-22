@@ -30,12 +30,7 @@
 
         <Menu Name="Menu">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="{Binding Path=NewCommand}"/>
-                <MenuItem Header="_Open" Command="{Binding Path=OpenCommand}"/>
-                <Separator/>
-                <MenuItem Header="_Save" Command="{Binding Path=SaveCommand}"/>
-                <MenuItem Header="Save _As" Command="{Binding Path=SaveAsCommand}"/>
-                <Separator/>
+                <MenuItem Header="_New" Command="{Binding Path=NewCommand}" Click="New"/>
                 <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}" Click="exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
@@ -66,7 +61,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>
+                <MenuItem Header="_About" Command="{Binding Path=AboutCommand}" Click="About"/>
             </MenuItem>
         </Menu>
 
