@@ -79,6 +79,16 @@ namespace VectorDrawPRO
         {
             selectOne(new CreateDiamondCommand(canvas), sender);
         }
+        
+        private void undo(object sender, RoutedEventArgs e)
+        {
+            Shapes.Undo();
+        }
+        
+        private void redo(object sender, RoutedEventArgs e)
+        {
+            Shapes.Redo();
+        }
 
         private void selectEraserCommand(object sender, RoutedEventArgs e)
         {
