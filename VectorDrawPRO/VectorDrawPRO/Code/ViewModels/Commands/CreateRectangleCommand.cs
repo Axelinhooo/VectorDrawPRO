@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VectorDrawPRO.Code.Models;
 
-namespace VectorDrawPRO.Code.ViewModels
+namespace VectorDrawPRO.Code.ViewModels.Commands
 {
     public class CreateRectangleCommand : ICommand
     {

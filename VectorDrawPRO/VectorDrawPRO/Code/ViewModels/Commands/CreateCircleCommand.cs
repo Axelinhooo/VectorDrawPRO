@@ -4,14 +4,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VectorDrawPRO.Code.Models;
 
-namespace VectorDrawPRO.Code.ViewModels
+namespace VectorDrawPRO.Code.ViewModels.Commands
 {
-    public class CreateDiamondCommand : ICommand
+    public class CreateCircleCommand : ICommand
     {
         private readonly Canvas canvas;
         public static bool IsSelected = false;
 
-        public CreateDiamondCommand(Canvas canvas)
+        public CreateCircleCommand(Canvas canvas)
         {
             this.canvas = canvas ?? throw new ArgumentNullException(nameof(canvas));
         }
@@ -27,14 +27,15 @@ namespace VectorDrawPRO.Code.ViewModels
             {
                 Point mousePosition = Mouse.GetPosition(canvas);
 
-                Diamond diamond = new Diamond(
-                    Convert.ToInt32(mousePosition.X) - 50,
-                    Convert.ToInt32(mousePosition.Y) - 50,
+                Circle circle = new Circle(
+                    Convert.ToInt32(mousePosition.X),
+                    Convert.ToInt32(mousePosition.Y),
                     width: 100,
-                    height: 100
+                    height: 75,
+                    radius: 50
                 );
 
-                diamond.Draw(canvas);
+                circle.Draw(canvas);
                 IsSelected = true;
             }
         }
