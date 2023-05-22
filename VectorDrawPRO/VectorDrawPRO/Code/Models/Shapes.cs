@@ -101,8 +101,10 @@ public abstract class Shapes
             {
                redoStack.Add(lastform);
                canvas.Children.Remove(lastform.Shape);
-               undoStack.RemoveAt(undoStack.Count - 1);
+               EditMode = false;
                EditShapeMenuItem.Visibility = Visibility.Collapsed;
+               SaveShapeMenuItem.Visibility = Visibility.Collapsed;
+               undoStack.RemoveAt(undoStack.Count - 1);
             }
             else
             {
