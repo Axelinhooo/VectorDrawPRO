@@ -68,7 +68,7 @@
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}" Click="About"/>
             </MenuItem>
-            <MenuItem Header="_Save" Name="SaveShapeMenuItem" Style="{StaticResource Save}" Visibility="Collapsed" Click="Save_OnClick"/>
+            <MenuItem Header="_Save(Ctrl+S)" Name="SaveShapeMenuItem" Style="{StaticResource Save}" Visibility="Collapsed" Click="Save_OnClick"/>
         </Menu>
 
         <Grid Grid.Row="1">

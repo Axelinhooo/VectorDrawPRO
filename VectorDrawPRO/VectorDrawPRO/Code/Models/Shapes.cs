@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -27,8 +26,7 @@ public abstract class Shapes
     private bool individualEditmode;
     
     public static bool modified = false;
-    
-    private static ShapeMemento memento;
+   
     public static List<ShapeMemento> undoStack = new List<ShapeMemento>();
     public static List<ShapeMemento> redoStack = new List<ShapeMemento>();
 
@@ -50,26 +48,21 @@ public abstract class Shapes
                     if(individualEditmode == false && EditMode == false)
                     {
                         SelectedShape = shape;
-                        setMemento(shape);
+                        addMemento(shape);
                         
                         shape.Fill = Brushes.Red;
                         individualEditmode = true;
                         EditMode = true;
                         EditShapeMenuItem.Visibility = Visibility.Visible;
-                        
                     }
                 }
                 else
                 {
                     if (individualEditmode)
                     {
-                        if (modified)
-                        {
-                          setMemento(shape);
-                        }
-                        shape.Fill = memento.Fill;
-                        shape.Stroke = memento.Stroke;
-                        shape.StrokeThickness = memento.StrokeThickness;
+                        shape.Fill = undoStack[undoStack.Count - 1].Fill;
+                        shape.Stroke = undoStack[undoStack.Count - 1].Stroke;
+                        shape.StrokeThickness = undoStack[undoStack.Count - 1].StrokeThickness;
                         individualEditmode = false;
                         EditMode = false;
                         EditShapeMenuItem.Visibility = Visibility.Collapsed;
@@ -100,17 +93,16 @@ public abstract class Shapes
         }
     }
     
-    public void setMemento(Shape shape)
+    public static void addMemento(Shape shape)
     {
-        memento = new ShapeMemento(shape ,SelectedShape.Fill, SelectedShape.Stroke, SelectedShape.StrokeThickness); 
-        undoStack.Add(memento);
+        undoStack.Add(new ShapeMemento(shape ,SelectedShape.Fill, SelectedShape.Stroke, SelectedShape.StrokeThickness));
     }
     
     public static void Undo(Canvas canvas)
     {
-        // prend la dernière forme de UndoStack
         if (undoStack.Count > 0)
         {
+            ShapeMemento lastform = undoStack[undoStack.Count - 1];
             if (undoStack[undoStack.Count - 1].Shape.Fill == null)
             {
                redoStack.Add(undoStack[undoStack.Count - 1]);
@@ -119,22 +111,12 @@ public abstract class Shapes
             }
             else
             {
-                //push dans le redoStack la dernière forme de UndoStack
-                redoStack.Add(memento);
-    
-                // Restaurer l'état précédent de UndoStack
-                memento.Shape.Fill = memento.Fill;
-                memento.Shape.Stroke = memento.Stroke;
-                memento.Shape.StrokeThickness = memento.StrokeThickness;
+                lastform.Shape.Fill = lastform.Fill;
+                lastform.Shape.Stroke = lastform.Stroke;
+                lastform.Shape.StrokeThickness = lastform.StrokeThickness;
                 
-                // enlever la dernière forme de UndoStack
+                redoStack.Add(lastform);
                 undoStack.RemoveAt(undoStack.Count - 1);
-                
-                // attribuer memento à la dernière forme de UndoStack si elle existe
-                if (undoStack.Count > 0)
-                {
-                   memento = undoStack[undoStack.Count - 1]; 
-                }
             }
             
         }
@@ -152,15 +134,12 @@ public abstract class Shapes
             }
             else
             {
-               //reprend la dernière forme de redoStack
                ShapeMemento lastform = redoStack[redoStack.Count - 1];
-   
-               // Restaurer l'état précédent de redoStack
-               lastform.Shape.Fill = memento.Fill;
-               lastform.Shape.Stroke = memento.Stroke;
-               lastform.Shape.StrokeThickness = memento.StrokeThickness;
                
-               //enlever la dernière forme de redoStack
+               lastform.Shape.Fill = lastform.Fill;
+               lastform.Shape.Stroke = lastform.Stroke;
+               lastform.Shape.StrokeThickness = lastform.StrokeThickness;
+               
                redoStack.RemoveAt(redoStack.Count - 1); 
             }
         }
