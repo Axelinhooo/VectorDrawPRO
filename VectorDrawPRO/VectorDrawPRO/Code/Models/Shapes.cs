@@ -68,6 +68,7 @@ namespace VectorDrawPRO.Code.Models
                     if (IsMouseOver(e.GetPosition(canvas)))
                     {
                         canvas.Children.Remove(shape);
+                        removeMemento(shape);
                     }
                 }
             };
@@ -88,11 +89,10 @@ namespace VectorDrawPRO.Code.Models
         {
             return undoStack.LastOrDefault();
         }
-
-        private static void SetDefaultShapeProperties(Shape shape)
+        
+        public static void removeMemento(Shape shape)
         {
-            shape.StrokeThickness = 1;
-            shape.Stroke = Brushes.Black;
+            undoStack.Remove(undoStack.FirstOrDefault(x => x.Shape == shape));
         }
 
         public static void addMemento(Shape shape)

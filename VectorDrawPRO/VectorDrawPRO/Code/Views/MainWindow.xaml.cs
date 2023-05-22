@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using VectorDrawPRO.Code.Models;
-using VectorDrawPRO.Code.ViewModels;
 using VectorDrawPRO.Code.ViewModels.Commands;
 using VectorDrawPRO.Code.Views;
 using Xceed.Wpf.Toolkit;
