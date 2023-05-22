@@ -69,6 +69,7 @@ namespace VectorDrawPRO.Code.Models
                     {
                         canvas.Children.Remove(shape);
                         removeMemento(shape);
+                        redoStack.Add(new ShapeMemento(shape, shape.Fill, shape.Stroke, shape.StrokeThickness));
                     }
                 }
             };
