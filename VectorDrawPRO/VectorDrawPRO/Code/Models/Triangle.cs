@@ -1,29 +1,42 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace VectorDrawPRO.Code.Models;
-
-public class Triangle : Shapes
+namespace VectorDrawPRO.Code.Models
 {
-    bool individualEditmode = false;
-    Polygon polygon;
-    
-    public override void Draw(Canvas canvas)
+    using System.Windows.Controls;
+    using System.Windows.Media;
+    using System.Windows.Shapes;
+
+    namespace VectorDrawPRO.Code.Models
     {
-        Polygon polygon = new Polygon();
-        polygon.Points.Add(new Point(X, Y + Height));
-        polygon.Points.Add(new Point(X + Width / 2, Y));
-        polygon.Points.Add(new Point(X + Width, Y + Height));
-        polygon.Stroke = Brushes.Black;
-        canvas.Children.Add(polygon);
+        public class Triangle : Shapes
+        {
+            bool individualEditmode = false;
+            Lazy<Polygon> polygon;
         
-        AddMouseLeftButtonDownEvent(polygon, canvas);
-    }
-    
-    public Shape GetShape()
-    {
-        return polygon;
+            public override void Draw(Canvas canvas)
+            {
+                polygon = new Lazy<Polygon>(() =>
+                {
+                    Polygon p = new Polygon();
+                    p.Points.Add(new Point(X, Y + Height));
+                    p.Points.Add(new Point(X + Width / 2, Y));
+                    p.Points.Add(new Point(X + Width, Y + Height));
+                    p.Stroke = Brushes.Black;
+                    AddMouseLeftButtonDownEvent(p, canvas);
+                    return p;
+                });
+
+                canvas.Children.Add(polygon.Value);
+            }
+        
+            public Shape GetShape()
+            {
+                return polygon.Value;
+            }
+        }
     }
 }

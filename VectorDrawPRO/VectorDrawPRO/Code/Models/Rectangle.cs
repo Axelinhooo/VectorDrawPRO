@@ -1,35 +1,36 @@
-using System.Windows;
+using System;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace VectorDrawPRO.Code.Models;
-
-public class Rectangle : Shapes
+namespace VectorDrawPRO.Code.Models
 {
-    bool individualEditmode = false;
-    System.Windows.Shapes.Rectangle rect;
-    
-    public override void Draw(Canvas canvas)
+    public class Rectangle : Shapes
     {
-        rect = new System.Windows.Shapes.Rectangle
-        {
-            Width = Width,
-            Height = Height,
-            Stroke = Brushes.Black,
-            StrokeThickness = 2
-        };
-
-        Canvas.SetLeft(rect, X);
-        Canvas.SetTop(rect, Y);
-
-        canvas.Children.Add(rect);
+        bool individualEditmode = false;
+        Lazy<System.Windows.Shapes.Rectangle> rect;
         
-        AddMouseLeftButtonDownEvent(rect, canvas);
-    }
-    
-    public Shape GetShape()
-    {
-        return rect;
+        public override void Draw(Canvas canvas)
+        {
+            rect = new Lazy<System.Windows.Shapes.Rectangle>(() => new System.Windows.Shapes.Rectangle
+            {
+                Width = Width,
+                Height = Height,
+                Stroke = Brushes.Black,
+                StrokeThickness = 2
+            });
+
+            Canvas.SetLeft(rect.Value, X);
+            Canvas.SetTop(rect.Value, Y);
+
+            canvas.Children.Add(rect.Value);
+            
+            AddMouseLeftButtonDownEvent(rect.Value, canvas);
+        }
+        
+        public Shape GetShape()
+        {
+            return rect.Value;
+        }
     }
 }
