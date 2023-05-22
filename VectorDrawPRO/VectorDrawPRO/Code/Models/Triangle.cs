@@ -8,7 +8,7 @@ namespace VectorDrawPRO.Code.Models
 {
     public class Triangle : Shapes
     {
-        private readonly Lazy<Polygon> polygon;
+        private readonly Lazy<Polygon> polygon; // Lazy permet de ne pas instancier l'objet tant qu'il n'est pas utilisé
 
         public Triangle(int x, int y, int width, int height)
         {
@@ -20,10 +20,10 @@ namespace VectorDrawPRO.Code.Models
             polygon = new Lazy<Polygon>(() =>
             {
                 Polygon p = new Polygon();
-                p.Points.Add(new Point(X, Y + Height));
+                p.Points.Add(new Point(X, Y + Height)); // Ajout d'un point à la liste des points du polygone
                 p.Points.Add(new Point(X + Width / 2, Y));
                 p.Points.Add(new Point(X + Width, Y + Height));
-                p.Stroke = Brushes.Black;
+                p.Stroke = Brushes.Black; // Couleur du contour
                 return p;
             });
         }
@@ -33,11 +33,6 @@ namespace VectorDrawPRO.Code.Models
             canvas.Children.Add(polygon.Value);
             AddMouseLeftButtonDownEvent(polygon.Value, canvas);
             addMemento(polygon.Value);
-        }
-
-        public Polygon GetPolygon()
-        {
-            return polygon.Value;
         }
     }
 }

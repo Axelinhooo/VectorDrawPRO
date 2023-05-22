@@ -7,7 +7,7 @@ namespace VectorDrawPRO.Code.Models
 {
     public class Rectangle : Shapes
     {
-        private readonly Lazy<System.Windows.Shapes.Rectangle> rect;
+        private readonly Lazy<System.Windows.Shapes.Rectangle> rect; // Lazy permet de ne pas instancier l'objet tant qu'il n'est pas utilisé
 
         public Rectangle(int x, int y, int width, int height)
         {
@@ -16,7 +16,7 @@ namespace VectorDrawPRO.Code.Models
             Width = width;
             Height = height;
 
-            rect = new Lazy<System.Windows.Shapes.Rectangle>(() => new System.Windows.Shapes.Rectangle
+            rect = new Lazy<System.Windows.Shapes.Rectangle>(() => new System.Windows.Shapes.Rectangle 
             {
                 Width = Width,
                 Height = Height,
