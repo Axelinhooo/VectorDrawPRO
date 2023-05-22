@@ -31,4 +31,10 @@
       <Folder Include="packages\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Xceed.Wpf.Toolkit">
+        <HintPath>..\..\..\..\..\Downloads\Extended.WPF.Toolkit.Binaries.NET.4.x\Extended.WPF.Toolkit.Binaries.NET.4.x\Xceed.Wpf.Toolkit.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

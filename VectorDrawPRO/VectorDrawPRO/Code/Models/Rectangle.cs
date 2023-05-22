@@ -17,7 +17,7 @@ public class Rectangle : Shapes
             Width = Width,
             Height = Height,
             Stroke = Brushes.Black,
-            StrokeThickness = 2
+            StrokeThickness = 1
         };
 
         Canvas.SetLeft(rect, X);

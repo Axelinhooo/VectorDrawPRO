@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using VectorDrawPRO.Code.Models;
 using VectorDrawPRO.Code.ViewModels;
+using Xceed.Wpf.Toolkit;
+
 
 namespace VectorDrawPRO
 {
@@ -16,6 +17,7 @@ namespace VectorDrawPRO
     public partial class MainWindow : Window
     {
         MenuItem itemSelected;
+        public ColorPicker colorPicker { get; set; }
         
         public MainWindow()
         {
@@ -94,17 +96,26 @@ namespace VectorDrawPRO
 
         private void changeFill(object sender, RoutedEventArgs e)
         {
-            Shapes.SelectedShape.Fill = Brushes.Orange;
+            Shapes.SelectedShape.Fill = new SolidColorBrush((Color)fillPicker.SelectedColor);
+            Shapes.modified = true;
         }
-        
+
         private void changeStroke(object sender, RoutedEventArgs e)
         {
-            Shapes.SelectedShape.Stroke = Brushes.Aqua;
+            Shapes.SelectedShape.Stroke = new SolidColorBrush((Color)strokePicker.SelectedColor);
+            Shapes.modified = true;
         }
         
         private void changeStrokeThickness(object sender, RoutedEventArgs e)
-        { 
-            Shapes.SelectedShape.StrokeThickness = 3;
+        {
+            String input = thicknessBox.Text;
+            double output;
+
+            if (Double.TryParse(input, out output))
+            {
+                Shapes.SelectedShape.StrokeThickness =  output;
+                Shapes.modified = true;
+            }
         }
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)

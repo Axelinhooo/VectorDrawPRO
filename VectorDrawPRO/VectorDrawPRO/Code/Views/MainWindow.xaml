@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="VectorDrawPRO" Height="450" Width="800">
 
@@ -18,6 +19,8 @@
             <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}"/>
         </Style>
     </Window.Resources>
+    
+    
     
     <Grid>
         <Grid.RowDefinitions>
@@ -49,9 +52,18 @@
                 <MenuItem Header="_Triangle" Click="selectTriangleCommand"/>
             </MenuItem>
             <MenuItem Header="_Edit Shape" Name="EditShapeMenuItem" Visibility="Collapsed" Style="{StaticResource SubMenuStyle}">
-                <MenuItem Header="_ColorFill" Click="changeFill"/>
-                <MenuItem Header="_ColorStroke" Click="changeStroke"/>
-                <MenuItem Header="_StrokeThickness" Click="changeStrokeThickness"/>
+                <MenuItem Header="_ColorFill" Click="changeFill">
+                    <xctk:ColorPicker Name="fillPicker" SelectedColor="{Binding Path=SelectedShape.Fill, Mode=TwoWay}" />
+                </MenuItem>
+                <MenuItem Header="_ColorStroke" Click="changeStroke">
+                    <xctk:ColorPicker Name="strokePicker" SelectedColor="{Binding Path=SelectedShape.Stroke, Mode=TwoWay}" />
+                </MenuItem>
+                <MenuItem Header="_StrokeThickness" Click="changeStrokeThickness">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Thickness:" Margin="0,0,5,0" VerticalAlignment="Center" />
+                        <TextBox x:Name="thicknessBox" Text="{Binding Path=SelectedShape.StrokeThickness, Mode=TwoWay}" Width="50" VerticalAlignment="Center" />
+                    </StackPanel>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Command="{Binding Path=AboutCommand}"/>

@@ -21,6 +21,8 @@ public abstract class Shapes
     public static Shape SelectedShape;
     
     private bool individualEditmode;
+    
+    public static bool modified = false;
 
     public abstract void Draw(Canvas canvas);
 
@@ -55,10 +57,11 @@ public abstract class Shapes
                 {
                     if (individualEditmode)
                     {
-                        shape.Fill = Brushes.Transparent;
+                        shape.Fill = modified? shape.Fill : Brushes.Transparent;
                         individualEditmode = false;
                         EditMode = false;
                         EditShapeMenuItem.Visibility = Visibility.Collapsed;
+                        modified = false;
                     }
                 }
             }

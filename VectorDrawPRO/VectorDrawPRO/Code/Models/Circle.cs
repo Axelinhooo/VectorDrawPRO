@@ -20,7 +20,7 @@ public class Circle : Shapes
             Width = 2 * Radius,
             Height = 2 * Radius,
             Stroke = Brushes.Black,
-            StrokeThickness = 2
+            StrokeThickness = 1
         };
 
         Canvas.SetLeft(ellipse, X - Radius);

@@ -18,3 +18,5 @@ C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\De
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.pdb
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.genruntimeconfig.cache
 C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\ref\VectorDrawPRO.dll
+C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\bin\Debug\net7.0-windows\Xceed.Wpf.Toolkit.dll
+C:\Users\vdelmas\Documents\Cesi\VectorDrawPRO\VectorDrawPRO\VectorDrawPRO\obj\Debug\net7.0-windows\VectorDrawPRO.csproj.CopyComplete
